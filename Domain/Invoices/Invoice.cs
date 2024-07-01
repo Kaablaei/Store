@@ -1,0 +1,49 @@
+﻿using Domain.Base;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Domain.Invoices
+{
+    public class Invoice : BaseEntity<int>
+    {
+        public string InvoiceNo { get; set; }
+
+        public int UserId { get; set; }
+
+        public int AdressId { get; set; }
+
+        public InvoiceStatus Statuse { get; set; }
+
+
+        public string TrackingCode { get; set; }
+
+
+
+        public decimal TotalPrice { get; set; }
+        public decimal Discount { get; set; }
+
+        public decimal PayableAmount { get; set; }
+
+
+
+        public static Invoice Create(int addressId,decimal discount)
+        {
+            return new Invoice 
+            { 
+
+            };
+        }
+
+        void Payed()
+        {
+            this.Statuse = InvoiceStatus.Payed;
+            this.ModifiedOn = DateTime.UtcNow;
+        }
+    }
+
+}
