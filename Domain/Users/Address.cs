@@ -12,5 +12,19 @@ namespace Domain.Users
         public string City { get; set; }
         public string State { get; set; }
         public string PostalCode { get; set; }
+
+
+
+        //
+        public static Address Create(string city, string state, string postcart)
+        {
+            return new Address
+            {
+                City = city,
+                State = state,
+                PostalCode = postcart
+            };
+        }
+
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.User
+namespace Domain.Users
 {
     public class User : BaseEntity<int>
     {
@@ -15,8 +15,24 @@ namespace Domain.User
         public string Family { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public DateTime RegisterDate { get; set; }
+       
+
+
+        public static User Create(string name, string family, string phone, string email)
+        {
+            return new User
+            {
+                Name = name,
+                Family = family,
+                Phone = phone,
+                Email = email,
+                
+            };
+
+        }
+
 
     }
+
 
 }

@@ -27,13 +27,13 @@ namespace Domain.Products
         }
     }
 
-    public class Sample
-    {
-        public Sample()
-        {
-            var t =  Category.Create("2");
-        }
-    }
+    //public class Sample
+    //{
+    //    public Sample()
+    //    {
+    //        var t =  Category.Create("2");
+    //    }
+    //}
 
 
 

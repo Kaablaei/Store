@@ -1,4 +1,5 @@
 ﻿using Domain.Base;
+using Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace Domain.Invoices
         public string InvoiceNo { get; set; }
 
         public int UserId { get; set; }
+        public User user { get; set; }
 
         public int AdressId { get; set; }
 
@@ -35,11 +37,12 @@ namespace Domain.Invoices
         {
             return new Invoice 
             { 
-
+                AdressId = addressId,
+                Discount = discount,
             };
         }
 
-        void Payed()
+        public void Payed()
         {
             this.Statuse = InvoiceStatus.Payed;
             this.ModifiedOn = DateTime.UtcNow;
