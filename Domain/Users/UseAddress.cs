@@ -13,6 +13,7 @@ namespace Domain.Users
         public User User { get; set; }
 
         public int AddresId { get; set; }
+        public Address Address { get; set; }
 
         public static UseAddress Create(int userId, int address)
         {

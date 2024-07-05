@@ -18,6 +18,18 @@ namespace Infrastructure.Configuration.Invoicees
 
             builder.Property(p => p.Price);
             builder.Property(p => p.SalePrice);
+
+            builder.HasOne(p => p.User).WithMany()
+                .HasForeignKey(p => p.UserId).
+                OnDelete(DeleteBehavior.NoAction);
+
+
+            builder.HasOne(p => p.variation).WithMany()
+                .HasForeignKey(p => p.VaridationId).
+                OnDelete(DeleteBehavior.NoAction);
+
+
+
         }
     }
 }

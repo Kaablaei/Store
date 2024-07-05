@@ -22,6 +22,20 @@ namespace Infrastructure.Configuration.Invoicees
             builder.Property(p=>p.Discount).IsRequired().HasMaxLength(255);
             builder.Property(p=>p.PayableAmount).IsRequired().HasMaxLength(255);
 
+
+
+
+            builder.HasOne(p => p.User).WithMany()
+                .HasForeignKey(p => p.UserId).
+                OnDelete(DeleteBehavior.NoAction);
+
+
+
+            builder.HasOne(p => p.Address).WithMany()
+                .HasForeignKey(p => p.AdressId).
+                OnDelete(DeleteBehavior.NoAction);
+
+
         }
     }
 }

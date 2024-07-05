@@ -12,13 +12,6 @@ namespace Domain.Products
 
         public string Content { get; set; }
 
-        
-
-     
-
-
-
-
         //
         public static Comments Create(int productId,  string content)
         {

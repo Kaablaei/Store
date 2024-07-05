@@ -15,24 +15,18 @@ namespace Domain.Invoices
         public string InvoiceNo { get; set; }
 
         public int UserId { get; set; }
-        public User user { get; set; }
+        public User User { get; set; }
 
         public int AdressId { get; set; }
+        public Address Address { get; set; }
 
         public InvoiceStatus Statuse { get; set; }
 
-
         public string TrackingCode { get; set; }
-
-
-
         public decimal TotalPrice { get; set; }
         public decimal Discount { get; set; }
 
         public decimal PayableAmount { get; set; }
-
-
-
         public static Invoice Create(int addressId,decimal discount)
         {
             return new Invoice 

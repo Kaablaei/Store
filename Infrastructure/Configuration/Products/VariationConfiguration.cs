@@ -13,9 +13,6 @@ namespace Infrastructure.Configuration.Products
     {
         public void Configure(EntityTypeBuilder<Variation> builder)
         {
-           
-
-
             builder.HasKey(p => p.Id);
             builder.Property(p=>p.Color).HasMaxLength(255);
             builder.Property(p=>p.Size).HasMaxLength(255);

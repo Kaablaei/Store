@@ -5,8 +5,6 @@ namespace Domain.Products
 {
     public class Variation : BaseEntity<int>
     {
-
-
         public int ProductId { get; set; }
 
         public Product product { get; set; }
@@ -21,8 +19,6 @@ namespace Domain.Products
         public int InvoceId { get; set; }
         public Invoice invoice { get; set; }
 
-
-        //
         public static Variation Create(int progetctid, string color, string size, decimal price,
             decimal saleproce, int invoiceid)
         {

@@ -12,10 +12,17 @@ namespace Infrastructure.Configuration.Users
         {
             builder.ToTable("UserAdresses");
             builder.HasKey(x => x.Id);
+
             builder.HasOne(p => p.User)
                 .WithMany()
                 .HasForeignKey(p => p.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+
+            builder.HasOne(p => p.Address).WithMany()
+                .HasForeignKey(p => p.AddresId).
+                OnDelete(DeleteBehavior.NoAction);
+
 
             //builder.HasKey()
         }

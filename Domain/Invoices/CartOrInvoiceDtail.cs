@@ -1,7 +1,9 @@
 ﻿using Domain.Base;
+using Domain.Products;
 using Domain.Users;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,27 +15,20 @@ namespace Domain.Invoices
         public int UserId { get; set; }
         public User User { get ; set; } 
 
-        public int ValidationId { get; set; }
-
+        public int VaridationId { get; set; }
+        public Variation variation { get; set; }
         public decimal Price { get; set; }
 
         public decimal SalePrice { get; set; }
-
-
-
-
-        //
         public static CartOrInvoiceDtail Create(int userid, int validationid, decimal price, decimal saleprice)
         {
             return new CartOrInvoiceDtail
             {
                 UserId = userid,
-                ValidationId = validationid,
+                VaridationId = validationid,
                 Price = price,
                 SalePrice = saleprice
             };
-
-
 
         }
 

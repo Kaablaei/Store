@@ -19,7 +19,7 @@ namespace Infrastructure.Configuration.Products
                .WithMany()
                .HasForeignKey(p => p.ProductId)
                .OnDelete(DeleteBehavior.NoAction);
-
+             
 
             builder.Property(p => p.Content).IsRequired().HasMaxLength(255);
 

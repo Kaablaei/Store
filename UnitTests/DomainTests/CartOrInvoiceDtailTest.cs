@@ -25,7 +25,7 @@ namespace UnitTests.DomainTests
             //assert
 
             ci.Should().NotBeNull();
-            ci.ValidationId.Should().Be(valiuatoin);
+            ci.VaridationId.Should().Be(valiuatoin);
             ci.UserId.Should().Be(userid);
             ci.Price.Should().Be(price);
             ci.SalePrice.Should().Be(saleprice);

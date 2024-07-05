@@ -20,6 +20,7 @@ namespace Infrastructure.Configuration.Users
             builder.Property(p=>p.State ).IsRequired().HasMaxLength(250);
             
 
+
         }
     }
 }
