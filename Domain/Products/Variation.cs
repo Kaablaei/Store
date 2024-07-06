@@ -16,8 +16,6 @@ namespace Domain.Products
         public decimal Price { get; set; }
         public decimal SalePrice { get; set; }
 
-        public int InvoceId { get; set; }
-        public Invoice invoice { get; set; }
 
         public static Variation Create(int progetctid, string color, string size, decimal price,
             decimal saleproce, int invoiceid)
@@ -29,7 +27,7 @@ namespace Domain.Products
                 Size = size,
                 Price = price,
                 SalePrice = saleproce,
-                InvoceId = invoiceid
+               
             };
         }
 

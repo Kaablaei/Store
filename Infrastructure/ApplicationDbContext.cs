@@ -46,8 +46,17 @@ namespace Infrastructure
 
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
 
+
+
+         
+
+
             //base.OnModelCreating(modelBuilder);
         }
-        
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("server=.;database=StoreDB;trusted_connection=true;");
+        }
     }
 }

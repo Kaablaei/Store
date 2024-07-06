@@ -28,10 +28,7 @@ namespace Infrastructure.Configuration.Products
               .OnDelete(DeleteBehavior.NoAction);
             
             
-            builder.HasOne(p => p.invoice)
-              .WithMany()
-              .HasForeignKey(p => p.InvoceId)
-              .OnDelete(DeleteBehavior.NoAction);
+            
 
         }
     }

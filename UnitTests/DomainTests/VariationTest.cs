@@ -28,7 +28,7 @@ namespace UnitTests.DomainTests
             //variatin.Size.Should
             variatin.SalePrice.Should().Be(20.50M);
             variatin.Price.Should().Be(20.50M);
-            variatin.InvoceId.Should().Be(15);
+           
             
 
         }
