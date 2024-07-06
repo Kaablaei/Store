@@ -13,7 +13,7 @@ namespace Infrastructure.Configuration.User
     {     
         public void Configure(EntityTypeBuilder<Domain.Users.User> builder)
         {
-            builder.ToTable("");
+            builder.ToTable("Users");
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Name).IsRequired().HasMaxLength(256);
             builder.Property(p=>p.Family).IsRequired().HasMaxLength(256);
