@@ -18,7 +18,7 @@ namespace Infrastructure.Configuration.Invoicees
 
             builder.Property(p => p.Price);
             builder.Property(p => p.SalePrice);
-
+            
             builder.HasOne(p => p.User).WithMany()
                 .HasForeignKey(p => p.UserId).
                 OnDelete(DeleteBehavior.NoAction);
@@ -29,6 +29,8 @@ namespace Infrastructure.Configuration.Invoicees
                 OnDelete(DeleteBehavior.NoAction);
 
 
+            //relation
+            builder.HasOne(p => p.invoice).WithMany().HasForeignKey(p => p.InvoiceId);
 
         }
     }

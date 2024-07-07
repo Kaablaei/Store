@@ -20,6 +20,16 @@ namespace Domain.Invoices
         public int AdressId { get; set; }
         public Address Address { get; set; }
 
+
+
+        //about address
+        public string City { get; set; }
+        public string State { get; set; }
+        public string PostalCode { get; set; }
+
+
+
+
         public InvoiceStatus Statuse { get; set; }
 
         public string TrackingCode { get; set; }

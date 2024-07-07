@@ -18,7 +18,9 @@ namespace Infrastructure.Configuration.Users
             builder.Property(p=>p.PostalCode ).IsRequired().HasMaxLength(100);
             builder.Property(p=>p.City ).IsRequired().HasMaxLength(250);
             builder.Property(p=>p.State ).IsRequired().HasMaxLength(250);
-            
+
+
+            builder.HasOne(p => p.User).WithMany().HasForeignKey(p => p.UserId);
 
 
         }

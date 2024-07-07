@@ -10,6 +10,7 @@ namespace Domain.Users
 {
     public class User : BaseEntity<int>
     {
+        
 
         public string Name { get; set; }
         public string Family { get; set; }

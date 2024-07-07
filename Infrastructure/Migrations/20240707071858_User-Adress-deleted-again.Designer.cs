@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240707071858_User-Adress-deleted-again")]
+    partial class UserAdressdeletedagain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +33,6 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
                     b.Property<string>("CratetdAgent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -46,9 +46,6 @@ namespace Infrastructure.Migrations
                     b.Property<string>("CreatedIP")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("InvoiceId")
-                        .HasColumnType("int");
 
                     b.Property<int>("ModifiedById")
                         .HasColumnType("int");
@@ -80,8 +77,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("InvoiceId");
 
                     b.HasIndex("UserId");
 
@@ -548,6 +543,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDisable")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ModifiedById")
                         .HasColumnType("int");
 
@@ -651,10 +649,6 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Invoices.CartOrInvoiceDtail", b =>
                 {
-                    b.HasOne("Domain.Invoices.Invoice", "invoice")
-                        .WithMany()
-                        .HasForeignKey("InvoiceId");
-
                     b.HasOne("Domain.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -668,8 +662,6 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-
-                    b.Navigation("invoice");
 
                     b.Navigation("variation");
                 });

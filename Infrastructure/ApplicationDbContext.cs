@@ -12,9 +12,13 @@ namespace Infrastructure
         //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         #region Users
-        public DbSet<UseAddress> UserAddress { get; set; }
+
+
         public DbSet<User> Users { get; set; }
         public DbSet<Address> Address { get; set; }
+        //public DbSet<UseAddress> UserAddress { get; set; }
+
+
         #endregion
 
         #region Product

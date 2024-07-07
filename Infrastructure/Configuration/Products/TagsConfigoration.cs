@@ -16,10 +16,10 @@ namespace Infrastructure.Configuration.Products
             builder.HasKey(p => p.Id);
             builder.Property(p => p.TagContent).IsRequired().HasMaxLength(255);
 
+
             builder.HasOne(p => p.Product).WithMany()
                 .HasForeignKey(p => p.ProductId)
                 .OnDelete(DeleteBehavior.NoAction);
-            
 
         }
     }
