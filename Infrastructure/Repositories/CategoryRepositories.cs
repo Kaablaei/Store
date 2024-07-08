@@ -8,10 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public interface ICategoryRepositories
-    {
-        Category Sample();
-    }
+  
 
     public class CategoryRepositories : BaseRepository<Category>, ICategoryRepositories
     {

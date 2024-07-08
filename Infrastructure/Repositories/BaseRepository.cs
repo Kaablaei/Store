@@ -20,7 +20,7 @@ namespace Infrastructure.Repositories
          
         }
 
-        public virtual int Create(T entity) 
+        public  virtual int Create(T entity) 
         {
             _entity.Add(entity);
             _db.SaveChanges();
@@ -29,11 +29,12 @@ namespace Infrastructure.Repositories
 
         }
 
-        public virtual T? GetById(int id)
+        public  virtual T? GetById(int id)
         {
             return _entity
                 .AsNoTracking()
                 .SingleOrDefault(p => p.Id == id);
         }
     }
+
 }
