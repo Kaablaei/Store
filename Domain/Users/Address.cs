@@ -12,7 +12,6 @@ namespace Domain.Users
 
         public User User { get; set; }
         public int UserId { get; set; }
-
         public string City { get; set; }
         public string State { get; set; }
         public string PostalCode { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Products.Repository
 {
-    public interface IPruductRepository
+    public interface IProductRepository
     {
 
 
