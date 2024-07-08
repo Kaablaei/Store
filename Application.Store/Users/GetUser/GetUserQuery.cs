@@ -37,6 +37,7 @@ namespace Application.Users.Get
 
             return  (GetUserQueryResponse)user;
         }
+
     }
 
 
