@@ -10,13 +10,13 @@ namespace Application.Users.GetAll
     public record GetUsersQuery(int PageNo, int PageSize) : IRequest<ReadOnlyCollection<GetUsersQueryResponse>>;
 
 
-    public record GetUsersQueryResponse(int PageNo, string email ,string name )
+    public record GetUsersQueryResponse(int PageNo, string email, string name)
     {
         public static explicit operator GetUsersQueryResponse(User product)
 
         {
 
-            return new GetUsersQueryResponse(product.Id, product.Email, product.Name );
+            return new GetUsersQueryResponse(product.Id, product.Email, product.Name);
         }
     }
 

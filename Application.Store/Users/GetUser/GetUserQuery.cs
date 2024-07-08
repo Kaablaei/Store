@@ -1,4 +1,6 @@
-﻿using Application.Users.GetAll;
+﻿using Application.Products.GetProduct;
+using Application.Users.GetAll;
+using Domain.Products;
 using Domain.Users;
 using Domain.Users.Repository;
 using MediatR;
@@ -9,7 +11,15 @@ namespace Application.Users.Get
     public record GetUserQuery(int Id):IRequest<GetUserQueryResponse>;
 
 
-    public record GetUserQueryResponse(int Id);
+    public record GetUserQueryResponse(int Id)
+    {
+        public static explicit operator GetUserQueryResponse(User product)
+
+        {
+
+            return new GetUserQueryResponse(product.Id);
+        }
+    }
 
 
 
@@ -25,7 +35,7 @@ namespace Application.Users.Get
         {
             var user = _repo.GetById(request.Id);
 
-            return new GetUserQueryResponse(user.Id);
+            return  (GetUserQueryResponse)user;
         }
     }
 
