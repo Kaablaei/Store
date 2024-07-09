@@ -39,7 +39,7 @@ namespace Infrastructure.Repositories
 
 
 
-        int Update(T entity)
+        public int Update(T entity)
         {
 
             _db.Update(entity);
@@ -48,7 +48,7 @@ namespace Infrastructure.Repositories
             return entity.Id;
         }
 
-        void Delete(int id)
+        public void Delete(int id)
         {
 
             var En = _entity
@@ -60,7 +60,7 @@ namespace Infrastructure.Repositories
 
         }
 
-        IReadOnlyCollection<T> GetPaged(int pageNo, int pageSize)
+        public IReadOnlyCollection<T> GetPaged(int pageNo, int pageSize)
         {
             return _entity
         .AsNoTracking()

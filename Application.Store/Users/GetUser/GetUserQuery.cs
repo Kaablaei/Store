@@ -24,7 +24,7 @@ namespace Application.Users.Get
 
 
 
-    public record GetUserQueryHamdler : IRequestHandler<GetUserQuery, GetUserQueryResponse>
+    public class GetUserQueryHamdler : IRequestHandler<GetUserQuery, GetUserQueryResponse>
     {
         private IUserReopsitory _repo;
         public GetUserQueryHamdler(IUserReopsitory Repo)

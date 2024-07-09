@@ -10,17 +10,13 @@ namespace Infrastructure.Repositories
 {
     //ICategoryRepositories
 
-    public class CategoryRepositories : BaseRepository<Category> 
+    public class CategoryRepositories : BaseRepository<Category> , ICategoryRepository
     {
         public CategoryRepositories(ApplicationDbContext db) : base(db)
         {
 
         }
 
-        public Category Sample()
-        {
-            return Category.Create("");
-        }
-
+      
     }
 }
