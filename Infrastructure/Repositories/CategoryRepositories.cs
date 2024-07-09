@@ -8,23 +8,19 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-  
+    //ICategoryRepositories
 
-    public class CategoryRepositories : BaseRepository<Category>, ICategoryRepositories
+    public class CategoryRepositories : BaseRepository<Category> 
     {
         public CategoryRepositories(ApplicationDbContext db) : base(db)
         {
-        }
 
+        }
 
         public Category Sample()
         {
             return Category.Create("");
         }
-
-
-
-
 
     }
 }
