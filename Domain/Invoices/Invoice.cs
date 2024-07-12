@@ -1,4 +1,5 @@
-﻿using Domain.Base;
+﻿using Ardalis.GuardClauses;
+using Domain.Base;
 using Domain.Users;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Domain.Invoices
 {
@@ -39,6 +41,7 @@ namespace Domain.Invoices
         public decimal PayableAmount { get; set; }
         public static Invoice Create(int addressId,decimal discount)
         {
+            discount = Guard.Against.NegativeOrZero(discount);
             return new Invoice 
             { 
                 AdressId = addressId,

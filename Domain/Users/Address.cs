@@ -1,4 +1,5 @@
-﻿using Domain.Base;
+﻿using Ardalis.GuardClauses;
+using Domain.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,14 @@ namespace Domain.Users
         public string PostalCode { get; set; }
 
 
-     
-     
+
+
         public static Address Create(string city, string state, string postcart)
         {
+            city = Guard.Against.NullOrEmpty(city);
+            state = Guard.Against.NullOrEmpty(state);
+            postcart = Guard.Against.NullOrEmpty(postcart);
+
             return new Address
             {
                 City = city,

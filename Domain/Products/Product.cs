@@ -1,4 +1,5 @@
-﻿using Domain.Base;
+﻿using Ardalis.GuardClauses;
+using Domain.Base;
 using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 
@@ -21,6 +22,10 @@ namespace Domain.Products
         //
         public static Product Create(string sku, string title, decimal price, int categoryid)
         {
+            sku = Guard.Against.NullOrEmpty(sku);
+            title = Guard.Against.NullOrEmpty(title);
+            price = Guard.Against.NegativeOrZero(price);
+
             return new Product
             {
                 SKU = sku,

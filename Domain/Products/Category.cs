@@ -1,7 +1,9 @@
-﻿using Domain.Base;
+﻿using Ardalis.GuardClauses;
+using Domain.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +21,7 @@ namespace Domain.Products
 
         public static Category Create(string name)
         {
+            name = Guard.Against.NullOrEmpty(name);
             return new Category
             {
                 Name = name,

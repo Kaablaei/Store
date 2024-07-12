@@ -1,4 +1,5 @@
-﻿using Domain.Base;
+﻿using Ardalis.GuardClauses;
+using Domain.Base;
 using Domain.Invoices;
 
 namespace Domain.Products
@@ -20,6 +21,10 @@ namespace Domain.Products
         public static Variation Create(int progetctid, string color, string size, decimal price,
             decimal saleproce, int invoiceid)
         {
+
+            price = Guard.Against.NegativeOrZero(price);
+            saleproce = Guard.Against.NegativeOrZero(saleproce);
+
             return new Variation
             {
                 ProductId = progetctid,

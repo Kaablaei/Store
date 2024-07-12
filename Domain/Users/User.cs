@@ -1,4 +1,5 @@
-﻿using Domain.Base;
+﻿using Ardalis.GuardClauses;
+using Domain.Base;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -21,19 +22,23 @@ namespace Domain.Users
 
         public static User Create(string name, string family, string phone, string email)
         {
+
+            name = Guard.Against.NullOrWhiteSpace(name);
+            family = Guard.Against.NullOrEmpty(family);
+            phone = Guard.Against.NullOrEmpty(phone);
+            email = Guard.Against.NullOrEmpty(email);
+
             return new User
             {
                 Name = name,
                 Family = family,
                 Phone = phone,
                 Email = email,
-                
             };
 
         }
 
 
     }
-
 
 }

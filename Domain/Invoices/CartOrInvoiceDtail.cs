@@ -1,4 +1,5 @@
-﻿using Domain.Base;
+﻿using Ardalis.GuardClauses;
+using Domain.Base;
 using Domain.Products;
 using Domain.Users;
 using System;
@@ -30,6 +31,8 @@ namespace Domain.Invoices
         public decimal SalePrice { get; set; }
         public static CartOrInvoiceDtail Create(int userid, int validationid, decimal price, decimal saleprice)
         {
+            price = Guard.Against.NegativeOrZero(price);
+            saleprice = Guard.Against.NegativeOrZero(saleprice);
             return new CartOrInvoiceDtail
             {
                 UserId = userid,

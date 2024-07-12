@@ -1,4 +1,6 @@
-﻿using Domain.Base;
+﻿using Ardalis.GuardClauses;
+using Domain.Base;
+using System.Diagnostics;
 
 namespace Domain.Products
 {
@@ -15,6 +17,7 @@ namespace Domain.Products
         //
         public static Comments Create(int productId,  string content)
         {
+            content = Guard.Against.NullOrEmpty(content);
             return new Comments
             {
                 ProductId = productId,
