@@ -1,11 +1,6 @@
 ﻿using Domain.Products.Repository;
 using Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure
 {
@@ -15,9 +10,7 @@ namespace Infrastructure
         {
             service.AddScoped<IProductRepository, ProductRepositories>();
             service.AddScoped<ICategoryRepository, CategoryRepositories>();
-
             return service;
         }
-
     }
 }
