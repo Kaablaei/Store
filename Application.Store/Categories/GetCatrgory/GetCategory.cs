@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Application.Categorys.GetCatrgory
 {
-    public record GetCategoryQuery(int id) : IRequest<GetCategoryQueryResponse>;
+    public record GetCategoryQuery(int Id) : IRequest<GetCategoryQueryResponse>;
 
-    public record GetCategoryQueryResponse(int id)
+    public record GetCategoryQueryResponse(int Id)
     {
         public static explicit operator GetCategoryQueryResponse(Category category)
         {
@@ -31,7 +31,7 @@ namespace Application.Categorys.GetCatrgory
 
         public async Task<GetCategoryQueryResponse> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
         {
-            var cagory = _repo.GetById(request.id);
+            var cagory = _repo.GetById(request.Id);
             return (GetCategoryQueryResponse)cagory;
 
         }

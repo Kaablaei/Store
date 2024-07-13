@@ -9,10 +9,17 @@ using System.Threading.Tasks;
 
 namespace Application.Products.CreateProduct
 {
-    public class CreateProductCommandHandler(IProductRepository repository) : IRequestHandler<CreateProductCommand, CreateProductCommandResponse>
+    public class CreateProductCommandHandler(IProductRepository repository, ICategoryRepository categoryRepository) : IRequestHandler<CreateProductCommand, CreateProductCommandResponse>
     {
         public async Task<CreateProductCommandResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
+
+            var category= categoryRepository.GetById(request.CategoryId);
+            if (category == null)
+            {
+                throw new NullReferenceException(nameof(request.CategoryId));
+            }
+
             var product = Product.Create("", request.Title, request.Price, request.CategoryId);
             var id=repository.Create(product);
       

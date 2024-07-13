@@ -21,7 +21,12 @@ namespace Domain.Products
             return new Category
             {
                 Name = name,
-                CreateOn = DateTime.UtcNow
+                CreateOn = DateTime.UtcNow,
+                CratetdAgent="",
+                CreatedIP= "",
+                ModifyAgent= "",
+                ModifyIP= ""
+
             };
         }
     }

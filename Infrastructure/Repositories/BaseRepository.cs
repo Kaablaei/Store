@@ -18,6 +18,7 @@ namespace Infrastructure.Repositories
         protected BaseRepository(ApplicationDbContext db)
         {
             _db = db;
+            _entity = _db.Set<T>();
         }
 
         public virtual int Create(T entity)
