@@ -12,16 +12,16 @@ using Domain.Invoices;
 
 namespace Application.Invoices.CreateInvoice
 {
+    public record CreateInvoiceCommand(string InvoiceNo, int addressId, decimal discount) : IRequest<CreateInvoiceCommandResponse>;
     public record CreateInvoiceCommandResponse(int Id);
 
-    public record CreateInvoiceCommand(int addressId, decimal discount) : IRequest<CreateInvoiceCommandResponse>;
 
 
     public class CreateInvoiceCommandHandler(IInvoiveRepository repository) : IRequestHandler<CreateInvoiceCommand, CreateInvoiceCommandResponse>
     {
         public async Task<CreateInvoiceCommandResponse> Handle(CreateInvoiceCommand request, CancellationToken cancellationToken)
         {
-            var invoce = Invoice.Create(request.addressId,request.discount);
+            var invoce = Invoice.Create(request.InvoiceNo ,request.addressId,request.discount);
             var id = repository.Create(invoce);
 
             return new CreateInvoiceCommandResponse(id);

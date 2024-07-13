@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 
 namespace Application.Invoices.Get
 {
-    public record GetInvoiceQuery(int id) : IRequest<GetInvoiceQueryResponse>;
-    public record GetInvoiceQueryResponse(int id)
+    public record GetInvoiceQuery(int Id) : IRequest<GetInvoiceQueryResponse>;
+    public record GetInvoiceQueryResponse(int Id , string InvoiceNo)
     {
         public static explicit operator GetInvoiceQueryResponse(Invoice invoice)
 
         {
 
-            return new GetInvoiceQueryResponse(invoice.Id);
+            return new GetInvoiceQueryResponse(invoice.Id,invoice.InvoiceNo);
         }
 
 
@@ -36,7 +36,7 @@ namespace Application.Invoices.Get
 
         public async Task<GetInvoiceQueryResponse> Handle(GetInvoiceQuery request, CancellationToken cancellationToken)
         {
-            var invoice = _repo.GetById(request.id);
+            var invoice = _repo.GetById(request.Id);
 
             return (GetInvoiceQueryResponse)invoice;
 

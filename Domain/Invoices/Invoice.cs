@@ -39,11 +39,21 @@ namespace Domain.Invoices
         public decimal Discount { get; set; }
 
         public decimal PayableAmount { get; set; }
-        public static Invoice Create(int addressId,decimal discount)
+        public static Invoice Create(string InvoiceNo, int addressId, decimal discount)
         {
             discount = Guard.Against.NegativeOrZero(discount);
-            return new Invoice 
-            { 
+            return new Invoice
+            {
+                InvoiceNo = InvoiceNo,
+                City = "",
+                CratetdAgent = "",
+                CreateOn = DateTime.UtcNow,
+                CreatedIP = "",
+                ModifyAgent = "",
+                ModifyIP = "",
+
+
+                
                 AdressId = addressId,
                 Discount = discount,
             };
