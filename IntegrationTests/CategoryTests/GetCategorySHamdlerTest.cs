@@ -28,7 +28,6 @@ namespace IntegrationTests.CategoryTests
             var dbContextName = Guid.NewGuid().ToString();
             var dbContext = _fixture.BuildDbContext(dbContextName);
             var repo = new CategoryRepositories(dbContext);
-
             List<Category> categories = new List<Category>();
             List<int> categoryIds = new List<int>();
 
@@ -38,23 +37,21 @@ namespace IntegrationTests.CategoryTests
                 categories.Add(category);
                 categoryIds.Add(category.Id);
             }
-
             await dbContext.Categorys.AddRangeAsync(categories);
             await dbContext.SaveChangesAsync();
-
             var query = new GetCategorysQuery(PageNo: 1, PageSize: 10);
             var handler = new GetCategoryQueryHandler(repo);
-
             // Act
             var result = await handler.Handle(query, CancellationToken.None);
-
             // Assert
             result.Should().NotBeNull();
             result.Count.Should().Be(10);
             result.First().name.Should().Be($"{categoryName}1");
             result.Last().name.Should().Be($"{categoryName}10");
-
         }
 
     }
 }
+
+
+//16
