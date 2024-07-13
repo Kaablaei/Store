@@ -11,12 +11,12 @@ namespace Application.Categorys.GetCatrgory
 {
     public record GetCategoryQuery(int Id) : IRequest<GetCategoryQueryResponse>;
 
-    public record GetCategoryQueryResponse(int Id)
+    public record GetCategoryQueryResponse(int Id, string Name)
     {
         public static explicit operator GetCategoryQueryResponse(Category category)
         {
 
-            return new GetCategoryQueryResponse(category.Id);
+            return new GetCategoryQueryResponse(category.Id, category.Name);
         }
 
     }
@@ -36,8 +36,5 @@ namespace Application.Categorys.GetCatrgory
 
         }
     }
-
-
-
 
 }

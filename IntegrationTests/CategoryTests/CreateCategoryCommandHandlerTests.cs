@@ -1,11 +1,10 @@
 ﻿using Application.Categorys.CreateCategory;
-using Application.Categorys.GetCatrgory;
-using Domain.Products;
 using FluentAssertions;
 using Infrastructure;
 using Infrastructure.Repositories;
 using IntegrationTests.Fixture;
 using Microsoft.EntityFrameworkCore;
+using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +13,17 @@ using System.Threading.Tasks;
 
 namespace IntegrationTests.CategoryTests
 {
-    public class CreateCategoryCommandHandlerTests : IClassFixture<DbContextFixture>
+    public partial class CreateCategoryCommandHandlerTests : IClassFixture<DbContextFixture>
     {
         private readonly DbContextFixture _fixture;
+
+        private readonly IThirdParty _thirdParty;
+
 
         public CreateCategoryCommandHandlerTests(DbContextFixture fixture)
         {
             _fixture = fixture;
+            _thirdParty = NSubstitute.Substitute.For<IThirdParty>();
         }
 
 
@@ -32,8 +35,8 @@ namespace IntegrationTests.CategoryTests
             var dbName = Guid.NewGuid().ToString();
             var repo = new CategoryRepositories(_fixture.BuildDbContext(dbName));
 
-            var handler = new CreateCategoryCommandHandler(repo);
-
+            var handler = new CreateCategoryCommandHandler(repo, _thirdParty);
+            _thirdParty.SendSMS(Arg.Any<int>(), CancellationToken.None).Returns(3);
             //act
 
 
@@ -57,7 +60,5 @@ namespace IntegrationTests.CategoryTests
 
 
         }
-
-     
     }
 }
