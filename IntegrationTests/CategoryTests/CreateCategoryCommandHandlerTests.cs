@@ -51,14 +51,9 @@ namespace IntegrationTests.CategoryTests
 
             result.Should().NotBeNull();
             result.Id.Should().BeGreaterThan(0);
-
             var category = repo.GetById(result.Id);
-
             category.Should().NotBeNull();
             category?.Name.Should().Be(command.name);
-
-
-
         }
 
 
