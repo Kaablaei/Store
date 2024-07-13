@@ -12,10 +12,6 @@ namespace Domain.Products
     public class Category : BaseEntity<int>
     {
 
-        private Category()
-        {
-            
-        }
         public string Name { get; set; }
 
 

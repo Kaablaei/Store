@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Users;
+using Domain.Invoices;
+using Domain.Users.Repository;
+using Domain.Invoices.Repository;
 
 namespace Infrastructure.Repositories
 {
@@ -14,7 +16,18 @@ namespace Infrastructure.Repositories
 
         public ProductRepositories(ApplicationDbContext db) : base(db)
         {
-            
+
         }
     }
+    public class InvoiceRepositories : BaseRepository<Invoice>, IInvoiveRepository
+    {
+        public InvoiceRepositories(ApplicationDbContext db) : base(db)
+        {
+
+        }
+
+
+    } 
+
+
 }

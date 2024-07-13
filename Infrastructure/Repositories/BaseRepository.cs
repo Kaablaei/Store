@@ -18,7 +18,6 @@ namespace Infrastructure.Repositories
         protected BaseRepository(ApplicationDbContext db)
         {
             _db = db;
-
         }
 
         public virtual int Create(T entity)
@@ -26,8 +25,6 @@ namespace Infrastructure.Repositories
             _entity.Add(entity);
             _db.SaveChanges();
             return entity.Id;
-
-
         }
 
         public virtual T? GetById(int id)
