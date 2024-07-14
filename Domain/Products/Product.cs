@@ -28,6 +28,11 @@ namespace Domain.Products
 
             return new Product
             {
+                CreateOn = DateTime.UtcNow,
+                CratetdAgent = "",
+                CreatedIP = "",
+                ModifyAgent = "",
+                ModifyIP = "",
                 SKU = sku,
                 Title = title,
                 Picter = price,

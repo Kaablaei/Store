@@ -51,9 +51,10 @@ namespace Domain.Invoices
                 CreatedIP = "",
                 ModifyAgent = "",
                 ModifyIP = "",
+                PostalCode = "",
+                State = "",
+                TrackingCode = " ",
 
-
-                
                 AdressId = addressId,
                 Discount = discount,
             };

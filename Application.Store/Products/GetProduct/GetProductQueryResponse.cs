@@ -3,13 +3,13 @@ using Domain.Products;
 
 namespace Application.Products.GetProduct
 {
-    public record GetProductQueryResponse(int Id)
+    public record GetProductQueryResponse(int Id ,string title)
     {
         public static explicit operator GetProductQueryResponse(Product product)
 
         {
 
-            return new GetProductQueryResponse(product.Id);
+            return new GetProductQueryResponse(product.Id ,product.Title);
         }
     }
 }

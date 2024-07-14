@@ -10,7 +10,7 @@ namespace Application.Users.GetAll
     public record GetUsersQuery(int PageNo, int PageSize) : IRequest<ReadOnlyCollection<GetUsersQueryResponse>>;
 
 
-    public record GetUsersQueryResponse(int PageNo, string email, string name)
+    public record GetUsersQueryResponse(int Id, string email, string name)
     {
         public static explicit operator GetUsersQueryResponse(User product)
 
@@ -21,10 +21,10 @@ namespace Application.Users.GetAll
     }
 
 
-    public class GetUserHandler : IRequestHandler<GetUsersQuery, IReadOnlyCollection<GetUsersQueryResponse>>
+    public class GetUserSHandler : IRequestHandler<GetUsersQuery, IReadOnlyCollection<GetUsersQueryResponse>>
     {
         private IUserReopsitory _repo;
-        public GetUserHandler(IUserReopsitory Repo)
+        public GetUserSHandler(IUserReopsitory Repo)
         {
             _repo = Repo;
         }

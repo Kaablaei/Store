@@ -14,15 +14,17 @@ namespace Application.Products.CreateProduct
         public async Task<CreateProductCommandResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
 
-            var category= categoryRepository.GetById(request.CategoryId);
+           
+            var category = categoryRepository.GetById(request.CategoryId);
+
             if (category == null)
             {
                 throw new NullReferenceException(nameof(request.CategoryId));
             }
 
-            var product = Product.Create("", request.Title, request.Price, request.CategoryId);
-            var id=repository.Create(product);
-      
+            var product = Product.Create(" a", request.Title, request.Price, request.CategoryId);
+            var id = repository.Create(product);
+
             return new CreateProductCommandResponse(id);
         }
     }

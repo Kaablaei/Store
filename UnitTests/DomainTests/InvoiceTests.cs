@@ -19,7 +19,7 @@ namespace UnitTests.DomainTests
             var addressId = 1;
             var discount = 200;
             //act         
-            var invoice = Invoice.Create(addressId, discount);
+            var invoice = Invoice.Create("1",addressId, discount);
 
 
             //assert
@@ -37,7 +37,7 @@ namespace UnitTests.DomainTests
             //arrange
             var addressId = 1;
             var discount = 200;
-            var invoice = Invoice.Create(addressId, discount);
+            var invoice = Invoice.Create("1",addressId, discount);
 
             //act         
 

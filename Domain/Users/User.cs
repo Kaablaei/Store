@@ -30,6 +30,15 @@ namespace Domain.Users
 
             return new User
             {
+
+                CreateOn = DateTime.UtcNow,
+                CratetdAgent = "",
+                CreatedIP = "",
+                ModifyAgent = "",
+                ModifyIP = "",
+                 Version=1, 
+
+
                 Name = name,
                 Family = family,
                 Phone = phone,

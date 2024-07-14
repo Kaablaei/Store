@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace IntegrationTests.InvoiceTest
 {
-    public class CreatInvoiceCommendHandlerTest
+    public class CreatInvoiceCommendHandlerTest: IClassFixture<DbContextFixture>
     {
         private readonly DbContextFixture _fixture;
 

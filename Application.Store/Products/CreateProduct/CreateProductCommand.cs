@@ -8,5 +8,5 @@ using System.Threading.Tasks;
 
 namespace Application.Products.CreateProduct
 {
-    public record CreateProductCommand(string Title, decimal Price, int CategoryId) : IRequest<CreateProductCommandResponse>;
+    public record CreateProductCommand(string suk, string Title, decimal Price, int CategoryId) : IRequest<CreateProductCommandResponse>;
 }

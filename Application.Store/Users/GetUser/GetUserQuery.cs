@@ -11,13 +11,13 @@ namespace Application.Users.Get
     public record GetUserQuery(int Id):IRequest<GetUserQueryResponse>;
 
 
-    public record GetUserQueryResponse(int Id)
+    public record GetUserQueryResponse(int Id,string name)
     {
         public static explicit operator GetUserQueryResponse(User product)
 
         {
 
-            return new GetUserQueryResponse(product.Id);
+            return new GetUserQueryResponse(product.Id,product.Name);
         }
     }
 

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace IntegrationTests.InvoiceTest
 {
-    public class GetInvoiceHandlerTest
+    public class GetInvoiceHandlerTest : IClassFixture<DbContextFixture>
     {
         private readonly DbContextFixture _fixture;
         public GetInvoiceHandlerTest(DbContextFixture fixture)

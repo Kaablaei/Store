@@ -15,7 +15,7 @@ using GetInvoiceHandler = Application.Invoices.GetInvoices.GetInvoiceHandler;
 
 namespace IntegrationTests.InvoiceTest
 {
-    public class GetInvoicesHandlertTest
+    public class GetInvoicesHandlertTest : IClassFixture<DbContextFixture>
     {
         private readonly DbContextFixture _fixture;
         public GetInvoicesHandlertTest(DbContextFixture fixture)
@@ -39,7 +39,7 @@ namespace IntegrationTests.InvoiceTest
             repo.Create(invoice2);
             repo.Create(invoice3);
 
-            var query = new GetInvoicesSQry(1, 10);
+            var query = new GetInvoicesSQuery(1, 10);
             var handler = new GetInvoiceHandler(repo);
 
             // act
@@ -55,11 +55,11 @@ namespace IntegrationTests.InvoiceTest
             result.First().id.Should().Be(invoice1.Id);
             result.First().InvoceNon.Should().Be(invoice1.InvoiceNo);
             
-            result.First().id.Should().Be(invoice2.Id);
-            result.First().InvoceNon.Should().Be(invoice2.InvoiceNo);
+            result.SingleOrDefault(p=>p.id==2).id.Should().Be(invoice2.Id);
+            result.SingleOrDefault(p => p.id == 2).InvoceNon.Should().Be(invoice2.InvoiceNo);
             
-            result.First().id.Should().Be(invoice3.Id);
-            result.First().InvoceNon.Should().Be(invoice3.InvoiceNo);
+            result.SingleOrDefault(p => p.id == 3).id.Should().Be(invoice3.Id);
+            result.Last().InvoceNon.Should().Be(invoice3.InvoiceNo);
 
         }
     }
