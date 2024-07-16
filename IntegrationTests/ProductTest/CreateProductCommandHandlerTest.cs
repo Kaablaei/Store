@@ -1,5 +1,6 @@
 ﻿using Application.Products.CreateProduct;
 using Application.Users.Create;
+using Domain.Products;
 using Domain.Products.Repository;
 using FluentAssertions;
 using Infrastructure.Repositories;
@@ -28,7 +29,7 @@ namespace IntegrationTests.ProductTest
         {
             //arrange
             string dbName = Guid.NewGuid().ToString();
-            string dbNameForCategory = Guid.NewGuid().ToString();
+    
 
              
 
@@ -37,9 +38,13 @@ namespace IntegrationTests.ProductTest
             var categoyRepo = new CategoryRepositories(_fixture.BuildDbContext(dbName));
             var handel = new CreateProductCommandHandler(repo, categoyRepo);
 
+            var category = Category.Create("مبایل ");
+
+            categoyRepo.Create(category);
+           
             //act 
 
-            var command = new CreateProductCommand("2694_msda","سامسوگ A50", 100.56m, 12);
+            var command = new CreateProductCommand("2694_msda","سامسوگ A50", 100.56m, category.Id);
 
             var result = await handel.Handle(command, CancellationToken.None);
 
@@ -48,10 +53,11 @@ namespace IntegrationTests.ProductTest
 
             result.Should().NotBeNull();
             result.Id.Should().BeGreaterThan(0);
+
             var product = repo.GetById(result.Id);
             product.Should().NotBeNull();
             product.Title.Should().Be(command.Title);
-
+            product.CategoryId.Should().Be(category.Id);
 
         }
     }
