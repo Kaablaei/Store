@@ -45,9 +45,6 @@ namespace IntegrationTests.ProductTest
             //act
             var result = await handel.Handle(query, CancellationToken.None);
 
-
-
-
             //assert
 
             result.Should().NotBeNull();

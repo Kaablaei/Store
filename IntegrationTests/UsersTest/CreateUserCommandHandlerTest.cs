@@ -32,7 +32,7 @@ namespace IntegrationTests.Users
 
             var repo = new UserRepositories(_fixture.BuildDbContext(dbName));
 
-            var handel = new CreateUserCommandHandler(repo);
+            var handel = new CrateUserCommandHandler(repo);
             //act
             var command = new CreateUserCommand("ali", "ali", "1", "A@a.com");
             var result = await handel.Handle(command, CancellationToken.None);

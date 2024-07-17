@@ -7,12 +7,13 @@ using Domain.Users;
 
 namespace Application.Carts.CreateCart
 {
-    public class CreateCartCommandHandler(ICratRepository repository, IUserReopsitory userReopsitory, IProductRepository productRepository) : IRequestHandler<GetUserCartCommend, CreateCartCommandResponse>
+    public class CreateCartCommandHandler(ICratRepository repository, IUserReopsitory userReopsitory, IProductRepository productRepository) : IRequestHandler<CreateCartCommend, CreateCartCommandResponse>
     {
-        public async Task<CreateCartCommandResponse> Handle(GetUserCartCommend request, CancellationToken cancellationToken)
+        public async Task<CreateCartCommandResponse> Handle(CreateCartCommend request, CancellationToken cancellationToken)
         {
 
             var user = userReopsitory.GetById(request.userid);
+
             if (user == null)
             {
                 throw new NullReferenceException(nameof(request.userid));
@@ -20,6 +21,7 @@ namespace Application.Carts.CreateCart
 
 
             var product = productRepository.GetById(request.validationid);
+
             if (product == null)
             {
                 throw new NullReferenceException(nameof(request.validationid));

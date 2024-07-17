@@ -12,6 +12,6 @@ using Application.Users.Create;
 
 namespace Application.Carts.CreateCart
 {
-    public record GetUserCartCommend(int userid, int validationid, decimal price, decimal saleprice): IRequest<CreateCartCommandResponse>;
+    public record CreateCartCommend(int userid, int validationid, decimal price, decimal saleprice): IRequest<CreateCartCommandResponse>;
 
 }

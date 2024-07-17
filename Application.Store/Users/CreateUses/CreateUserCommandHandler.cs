@@ -13,7 +13,7 @@ using Domain.Users;
 namespace Application.Users.Create
 {
 
-    public class CreateUserCommandHandler(IUserReopsitory repository) : IRequestHandler<CreateUserCommand, CreateUserCommandResponse>
+    public class CrateUserCommandHandler(IUserReopsitory repository) : IRequestHandler<CreateUserCommand, CreateUserCommandResponse>
     {
         public async Task<CreateUserCommandResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {

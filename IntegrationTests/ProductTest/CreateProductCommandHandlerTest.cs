@@ -73,13 +73,11 @@ namespace IntegrationTests.ProductTest
             var categoyRepo = new CategoryRepositories(_fixture.BuildDbContext(dbName));
             var handel = new CreateProductCommandHandler(repo, categoyRepo);
 
-            var category = Category.Create("مبایل ");
-
-            
+          
 
             //act 
 
-            var command = new CreateProductCommand("2694_msda", "سامسوگ A50", 100.56m, category.Id);
+            var command = new CreateProductCommand("2694_msda", "سامسوگ A50", 100.56m, 68768);
 
             Func<Task>  act = async() => await handel.Handle(command, CancellationToken.None);
 
