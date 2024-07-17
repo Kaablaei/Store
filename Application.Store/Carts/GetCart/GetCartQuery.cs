@@ -5,8 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Categorys.GetCatrgory
+namespace Application.Carts.GetCart
 {
-    public record GetCategoryQuery(int Id) : IRequest<GetCategoryQueryResponse>;
+    public record GetCartQuer(int id) : IRequest<GetCartQueryResponse>
+    {
+    }
+
+
+
 
 }

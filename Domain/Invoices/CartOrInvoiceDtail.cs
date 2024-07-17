@@ -35,6 +35,12 @@ namespace Domain.Invoices
             saleprice = Guard.Against.NegativeOrZero(saleprice);
             return new CartOrInvoiceDtail
             {
+                CreateOn = DateTime.UtcNow,
+                CratetdAgent = "",
+                CreatedIP = "",
+                ModifyAgent = "",
+                ModifyIP = "",
+
                 UserId = userid,
                 VaridationId = validationid,
                 Price = price,
