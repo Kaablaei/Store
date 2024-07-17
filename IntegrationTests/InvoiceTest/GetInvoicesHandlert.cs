@@ -24,7 +24,7 @@ namespace IntegrationTests.InvoiceTest
         }
 
         [Fact]
-        public async Task Handle_Should_Get_Sum_Invoicese()
+        public async Task Handle_Should_Get_Invoicese()
         {
             // arreng
             var dbName = Guid.NewGuid().ToString();

@@ -25,7 +25,7 @@ namespace IntegrationTests.ProductTest
         }
 
         [Fact]
-        public async Task Handle_Should_Create_Product()
+        public async Task Handler_Should_Create_Product()
         {
             //arrange
             string dbName = Guid.NewGuid().ToString();
@@ -58,6 +58,35 @@ namespace IntegrationTests.ProductTest
             product.Should().NotBeNull();
             product.Title.Should().Be(command.Title);
             product.CategoryId.Should().Be(category.Id);
+
+        }
+
+
+        [Fact]
+        public async Task Handler_Should_Throw_Exception_If_Category_NotFound()
+        {
+            //arrange
+            string dbName = Guid.NewGuid().ToString();
+
+
+            var repo = new ProductRepositories(_fixture.BuildDbContext(dbName));
+            var categoyRepo = new CategoryRepositories(_fixture.BuildDbContext(dbName));
+            var handel = new CreateProductCommandHandler(repo, categoyRepo);
+
+            var category = Category.Create("مبایل ");
+
+            
+
+            //act 
+
+            var command = new CreateProductCommand("2694_msda", "سامسوگ A50", 100.56m, category.Id);
+
+            Func<Task>  act = async() => await handel.Handle(command, CancellationToken.None);
+
+            //assert
+
+            await act.Should().ThrowAsync<NullReferenceException>();
+
 
         }
     }

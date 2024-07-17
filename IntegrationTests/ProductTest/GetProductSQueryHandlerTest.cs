@@ -20,7 +20,7 @@ namespace IntegrationTests.ProductTest
             _fixture = fixture;
         }
         [Fact]
-        public async Task Handle_Should_Get_Sum_Products()
+        public async Task Handle_Should_Get_Products()
         {
             //arrange
             var dbName = Guid.NewGuid().ToString();

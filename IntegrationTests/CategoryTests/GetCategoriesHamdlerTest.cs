@@ -22,7 +22,7 @@ namespace IntegrationTests.CategoryTests
         }
 
         [Fact]
-        public async Task Handle_Should_Get_Sum_Categorese()
+        public async Task Handle_Should_Get_Categorese()
         {
             // arreng
             var dbName = Guid.NewGuid().ToString();
