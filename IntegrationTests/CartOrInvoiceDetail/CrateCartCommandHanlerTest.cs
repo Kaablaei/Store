@@ -38,16 +38,16 @@ namespace IntegrationTests.CartOrInvoiceDetail
             userrepo.Create(user);
 
             //aboutProduct 
-            var productRepo = new ProductRepositories(_fixture.BuildDbContext(dbName));
-            var product = Product.Create("25m56", "تیشرت آبی", 2500.99m, 22);
-            productRepo.Create(product);
+            var Variationrepo = new VariationRepository(_fixture.BuildDbContext(dbName));
+            var variation = Variation.Create(1,"red","2x larg",2.99m,10,1);
+            Variationrepo.Create(variation);
 
 
-            var handel = new CreateCartCommandHandler(repo, userrepo, productRepo);
+            var handel = new CreateCartCommandHandler(repo, userrepo, Variationrepo);
 
             //act 
       
-            var command = new CreateCartCommend(user.Id,product.Id,6.99m,6.99m);
+            var command = new CreateCartCommend(user.Id, variation.Id,6.99m,6.99m);
 
             var result = await handel.Handle(command, CancellationToken.None);
 
@@ -79,16 +79,16 @@ namespace IntegrationTests.CartOrInvoiceDetail
         
 
             //aboutProduct 
-            var productRepo = new ProductRepositories(_fixture.BuildDbContext(dbName));
-            var product = Product.Create("25m56", "تیشرت آبی", 2500.99m, 22);
+            var variationrepo = new VariationRepository(_fixture.BuildDbContext(dbName));
+            var varidation = Variation.Create(1, "red", "2x larg", 2.99m, 10, 1);
            
 
 
-            var handel = new CreateCartCommandHandler(repo, userrepo, productRepo);
+            var handel = new CreateCartCommandHandler(repo, userrepo, variationrepo);
 
             //act 
          
-            var command = new CreateCartCommend(user.Id,product.Id,6.99m,6.99m);
+            var command = new CreateCartCommend(user.Id, varidation.Id,6.99m,6.99m);
 
             
             Func<Task> act = async () => await handel.Handle(command, CancellationToken.None);

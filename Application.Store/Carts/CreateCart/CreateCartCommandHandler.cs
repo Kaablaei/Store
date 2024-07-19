@@ -7,7 +7,7 @@ using Domain.Users;
 
 namespace Application.Carts.CreateCart
 {
-    public class CreateCartCommandHandler(ICratRepository repository, IUserReopsitory userReopsitory, IProductRepository productRepository) : IRequestHandler<CreateCartCommend, CreateCartCommandResponse>
+    public class CreateCartCommandHandler(ICratRepository repository, IUserReopsitory userReopsitory, IVariationRepository variationRepository) : IRequestHandler<CreateCartCommend, CreateCartCommandResponse>
     {
         public async Task<CreateCartCommandResponse> Handle(CreateCartCommend request, CancellationToken cancellationToken)
         {
@@ -20,9 +20,9 @@ namespace Application.Carts.CreateCart
             }
 
 
-            var product = productRepository.GetById(request.validationid);
+            var variation = variationRepository.GetById(request.validationid);
 
-            if (product == null)
+            if (variation == null)
             {
                 throw new NullReferenceException(nameof(request.validationid));
             }

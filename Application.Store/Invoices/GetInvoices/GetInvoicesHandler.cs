@@ -3,15 +3,15 @@ using MediatR;
 
 namespace Application.Invoices.GetInvoices
 {
-    public class GetInvoiceHandler : IRequestHandler<GetInvoicesSQuery,IReadOnlyCollection<GetInvoiceSQueryResponse>>
+    public class GetInvoicesHandler : IRequestHandler<GetInvoicesQuery,IReadOnlyCollection<GetInvoiceSQueryResponse>>
     {
         private IInvoiveRepository _repo;
-        public GetInvoiceHandler(IInvoiveRepository Repo)
+        public GetInvoicesHandler(IInvoiveRepository Repo)
         {
             _repo = Repo;
         }
 
-        public async Task<IReadOnlyCollection<GetInvoiceSQueryResponse>> Handle(GetInvoicesSQuery request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyCollection<GetInvoiceSQueryResponse>> Handle(GetInvoicesQuery request, CancellationToken cancellationToken)
         {
 
 

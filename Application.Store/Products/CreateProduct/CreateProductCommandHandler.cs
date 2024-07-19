@@ -13,8 +13,6 @@ namespace Application.Products.CreateProduct
     {
         public async Task<CreateProductCommandResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-
-           
             var category = categoryRepository.GetById(request.CategoryId);
 
             if (category == null)

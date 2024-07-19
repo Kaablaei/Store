@@ -27,6 +27,12 @@ namespace Domain.Products
 
             return new Variation
             {
+                CreateOn = DateTime.UtcNow,
+                CratetdAgent = "",
+                CreatedIP = "",
+                ModifyAgent = "",
+                ModifyIP = "",
+
                 ProductId = progetctid,
                 Color = color,
                 Size = size,

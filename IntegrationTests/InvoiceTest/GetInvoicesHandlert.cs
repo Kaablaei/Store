@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GetInvoiceHandler = Application.Invoices.GetInvoices.GetInvoiceHandler;
+using GetInvoiceHandler = Application.Invoices.GetInvoices.GetInvoicesHandler;
 
 namespace IntegrationTests.InvoiceTest
 {
@@ -39,7 +39,7 @@ namespace IntegrationTests.InvoiceTest
             repo.Create(invoice2);
             repo.Create(invoice3);
 
-            var query = new GetInvoicesSQuery(1, 10);
+            var query = new GetInvoicesQuery(1, 10);
             var handler = new GetInvoiceHandler(repo);
 
             // act

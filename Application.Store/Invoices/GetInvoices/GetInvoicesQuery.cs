@@ -10,6 +10,6 @@ using System.Threading.Tasks;
 
 namespace Application.Invoices.GetInvoices
 {
-    public record GetInvoicesSQuery(int PageNo, int PageSize) :IRequest<ReadOnlyCollection<GetInvoiceSQueryResponse>> { }
+    public record GetInvoicesQuery(int PageNo, int PageSize) :IRequest<ReadOnlyCollection<GetInvoiceSQueryResponse>> { }
 
 }
