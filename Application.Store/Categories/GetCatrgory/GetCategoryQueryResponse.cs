@@ -7,6 +7,7 @@ namespace Application.Categorys.GetCatrgory
         public static explicit operator GetCategoryQueryResponse(Category category)
         {
 
+
             return new GetCategoryQueryResponse(category.Id, category.Name);
         }
 
