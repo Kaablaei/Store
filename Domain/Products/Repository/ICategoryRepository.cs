@@ -12,7 +12,7 @@ namespace Domain.Products.Repository
         int Create(Category product);
 
         int Update(Category product);
-        Category GetById(int id);
+        Category? GetById(int id);
         void Delete(int id);
 
         IReadOnlyCollection<Category> GetPaged(int pageNo, int pageSize);

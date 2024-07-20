@@ -40,17 +40,12 @@ namespace IntegrationTests.ProductTest
 
             var handel = new GetProductQueryHandler(repo);
 
-
-            
             //act
             var result = await handel.Handle(query, CancellationToken.None);
-
             //assert
-
             result.Should().NotBeNull();
             result.Id.Should().Be(productId);
             result.title.Should().Be(product.Title);
-
 
         }
 

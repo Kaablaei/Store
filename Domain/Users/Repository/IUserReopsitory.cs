@@ -8,7 +8,7 @@ namespace Domain.Users.Repository
         int Create(User user);
 
         int Update(User user);
-        User GetById(int id);
+        User? GetById(int id);
         IReadOnlyCollection<User> GetPaged(int pageNo, int pageSize);
 
         void Delete(int id);

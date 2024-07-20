@@ -13,7 +13,7 @@ namespace Infrastructure
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionBuilder.UseSqlServer("Data Source=.;Initial Catalog=StoreDb;Trusted_Connection=StoreDB;Integrated Security=true;TrustServerCertificate=True;");
+            optionBuilder.UseSqlServer("Data Source=.;Initial Catalog=StoreDb;Trusted_Connection=true;Integrated Security=true;TrustServerCertificate=True;");
 
             return new ApplicationDbContext(optionBuilder.Options);
         }

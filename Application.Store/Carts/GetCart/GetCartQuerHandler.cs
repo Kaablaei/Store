@@ -5,8 +5,8 @@ namespace Application.Carts.GetCart
 {
     public class GetCartQuerHandler : IRequestHandler<GetCartQuer, GetCartQueryResponse>
     {
-        private ICratRepository _repo;
-        public GetCartQuerHandler(ICratRepository repo)
+        private ICartRepository _repo;
+        public GetCartQuerHandler(ICartRepository repo)
         {
             _repo = repo;
         }

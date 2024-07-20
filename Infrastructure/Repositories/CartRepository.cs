@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class CartRepository  : BaseRepository<CartOrInvoiceDtail> , ICratRepository
+    public class CartRepository  : BaseRepository<CartOrInvoiceDtail> , ICartRepository
     {
 
         public CartRepository(ApplicationDbContext db) : base(db)

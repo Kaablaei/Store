@@ -13,7 +13,7 @@ namespace Domain.Products.Repository
         int Create(Product product);
 
         int Update(Product product);
-        Product GetById(int id);
+        Product? GetById(int id);
         IReadOnlyCollection<Product> GetPaged(int pageNo, int pageSize);
 
         void Delete(int id);

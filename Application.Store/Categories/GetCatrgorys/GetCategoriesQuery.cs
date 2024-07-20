@@ -10,5 +10,5 @@ using System.Threading.Tasks;
 
 namespace Application.Categorys.GetCatrgorys
 {
-    public record CategoriesQuery(int PageNo, int PageSize) : IRequest<IReadOnlyCollection<GetCategoriesQueryResponse>>;
+    public record GetCategoriesQuery(int PageNo, int PageSize) : IRequest<IReadOnlyCollection<GetCategoriesQueryResponse>>;
 }

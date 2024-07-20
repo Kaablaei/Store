@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Invoices.Repository
 {
-    public interface ICratRepository 
+    public interface ICartRepository 
     {
 
         int Create(CartOrInvoiceDtail cartOrInvoiceDtail);

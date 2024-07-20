@@ -35,8 +35,8 @@ namespace IntegrationTests.CategoryTests
             var dbName = Guid.NewGuid().ToString();
             var repo = new CategoryRepositories(_fixture.BuildDbContext(dbName));
 
-            var handler = new CreateCategoryCommandHandler(repo, _thirdParty);
-            _thirdParty.SendSMS(Arg.Any<int>(), CancellationToken.None).Returns(3);
+            var handler = new CreateCategoryCommandHandler(repo);
+            //_thirdParty.SendSMS(Arg.Any<int>(), CancellationToken.None).Returns(3);
             //act
 
 

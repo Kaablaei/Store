@@ -7,7 +7,7 @@ using Domain.Users;
 
 namespace Application.Carts.CreateCart
 {
-    public class CreateCartCommandHandler(ICratRepository repository, IUserReopsitory userReopsitory, IVariationRepository variationRepository) : IRequestHandler<CreateCartCommend, CreateCartCommandResponse>
+    public class CreateCartCommandHandler(ICartRepository repository, IUserReopsitory userReopsitory, IVariationRepository variationRepository) : IRequestHandler<CreateCartCommend, CreateCartCommandResponse>
     {
         public async Task<CreateCartCommandResponse> Handle(CreateCartCommend request, CancellationToken cancellationToken)
         {

@@ -37,7 +37,7 @@ namespace IntegrationTests.CategoryTests
             repo.Create(category2);
             repo.Create(category3);
 
-            var query = new CategoriesQuery(1, 10); 
+            var query = new GetCategoriesQuery(1, 10); 
             var handler = new GetCategoriesQueryHandler(repo);
 
             // act

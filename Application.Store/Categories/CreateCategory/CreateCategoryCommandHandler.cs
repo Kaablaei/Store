@@ -4,14 +4,13 @@ using MediatR;
 
 namespace Application.Categorys.CreateCategory
 {
-    public class CreateCategoryCommandHandler(ICategoryRepository repository, IThirdParty thirdParty) : IRequestHandler<CreateCategoryCommand, CreateCategoryCommandResponse>
+    public class CreateCategoryCommandHandler(ICategoryRepository repository) : IRequestHandler<CreateCategoryCommand, CreateCategoryCommandResponse>
     {
         public async Task<CreateCategoryCommandResponse> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
 
             var categury = Category.Create(request.name);
             var id = repository.Create(categury);
-            var sendId=await thirdParty.SendSMS(id, cancellationToken);
 
             return new CreateCategoryCommandResponse(id);
         }

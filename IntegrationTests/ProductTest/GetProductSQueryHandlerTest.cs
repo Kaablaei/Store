@@ -55,7 +55,5 @@ namespace IntegrationTests.ProductTest
             result.Last().Title.Should().Be(product3.Title);
         }
 
-
-
     }
 }
