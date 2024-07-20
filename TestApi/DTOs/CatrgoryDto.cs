@@ -1,6 +1,6 @@
 ﻿namespace API.DTOs
 {
-    public class CrateCatrgoryDto
+    public class CatrgoryDto
     {
         public string Name { get; set; }
     }

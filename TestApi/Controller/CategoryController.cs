@@ -33,7 +33,7 @@ namespace TestApi.Controller
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CrateCatrgoryDto requestDto)
+        public async Task<IActionResult> Create(CatrgoryDto requestDto)
         {
            
                 var command = new CreateCategoryCommand(requestDto.Name);
