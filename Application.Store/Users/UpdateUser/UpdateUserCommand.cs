@@ -14,7 +14,7 @@ namespace Application.Users.UpdateUser
 
     public record UpdateUserCommandResponse(int id);
 
-    public  class UpdateProductCommandHandler(IUserReopsitory repository) : IRequestHandler<UpdateUserCommand, UpdateUserCommandResponse>
+    public class UpdateUserCommandHandler(IUserReopsitory repository) : IRequestHandler<UpdateUserCommand, UpdateUserCommandResponse>
     {
         public async Task<UpdateUserCommandResponse> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
@@ -24,9 +24,6 @@ namespace Application.Users.UpdateUser
             user.Family = request.family;
             user.Phone = request.phone;
             user.Email = request.email;
-                
-            
-
 
             repository.Update(user);
 

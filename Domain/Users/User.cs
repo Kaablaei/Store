@@ -11,15 +11,11 @@ namespace Domain.Users
 {
     public class User : BaseEntity<int>
     {
-        
-
         public string Name { get; set; }
         public string Family { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
        
-
-
         public static User Create(string name, string family, string phone, string email)
         {
 
@@ -30,23 +26,18 @@ namespace Domain.Users
 
             return new User
             {
-
                 CreateOn = DateTime.UtcNow,
                 CratetdAgent = "",
                 CreatedIP = "",
                 ModifyAgent = "",
                 ModifyIP = "",
                  Version=1, 
-
-
                 Name = name,
                 Family = family,
                 Phone = phone,
                 Email = email,
             };
-
         }
-
 
     }
 

@@ -68,12 +68,9 @@ namespace IntegrationTests.ProductTest
             //arrange
             string dbName = Guid.NewGuid().ToString();
 
-
             var repo = new ProductRepositories(_fixture.BuildDbContext(dbName));
             var categoyRepo = new CategoryRepositories(_fixture.BuildDbContext(dbName));
             var handel = new CreateProductCommandHandler(repo, categoyRepo);
-
-          
 
             //act 
 
