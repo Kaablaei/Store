@@ -1,11 +1,13 @@
-﻿using Application.Categorys.GetCatrgory;
+﻿using API.DTOs;
+using Application.Categorys.CreateCategory;
+using Application.Categorys.GetCatrgory;
 using Application.Categorys.GetCatrgorys;
+using Application.Products.CreateProduct;
 using Application.Products.GetProduct;
 using Application.Products.GetProducts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace API.Controller
 {
@@ -16,7 +18,9 @@ namespace API.Controller
         [HttpGet]
         public async Task<IActionResult> Get(int pageNo)
         {
-            var result = await mediator.Send(new GetProductsQuery(pageNo, 1));
+            var result = await mediator.Send(new GetProductsQuery(pageNo, 10));
+
+           
             return Ok(result);
         }
 
@@ -31,6 +35,17 @@ namespace API.Controller
             }
 
             return Ok(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(ProductDto requestDto)
+        {
+            if (requestDto.CategoryId == null) return NotFound();
+
+
+            var command = new CreateProductCommand(requestDto.SKU,requestDto.Title,requestDto.Picter,requestDto.CategoryId);
+            var result = await mediator.Send(command);
+            return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+
         }
 
     }

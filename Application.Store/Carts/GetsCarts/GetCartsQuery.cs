@@ -9,6 +9,6 @@ using System.Threading.Tasks;
 
 namespace Application.Carts.GetCarts
 {
-    public record GetCartSQuery(int PageNo, int PageSize) : IRequest<ReadOnlyCollection<GetCartSQueryResponse>>;
+    public record GetCartSQuery(int PageNo, int PageSize) : IRequest<IReadOnlyCollection<GetCartSQueryResponse>>;
 
 }

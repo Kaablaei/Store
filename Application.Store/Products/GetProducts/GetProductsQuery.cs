@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Products.GetProducts
 {
-    public record GetProductsQuery(int PageNo,int PageSize):IRequest<ReadOnlyCollection<GetProductsQueryResponse>>;
+    public record GetProductsQuery(int PageNo,int PageSize):IRequest<IReadOnlyCollection<GetProductsQueryResponse>>;
     
     
 }

@@ -26,6 +26,7 @@ namespace Infrastructure
             services.AddScoped<IInvoiveRepository, InvoiceRepositories>();
             services.AddScoped<IVariationRepository, VariationRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
+
             return services;
         }
     }
