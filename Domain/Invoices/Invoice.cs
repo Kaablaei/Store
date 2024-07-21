@@ -60,11 +60,21 @@ namespace Domain.Invoices
             };
         }
 
+
         public void Payed()
         {
             this.Statuse = InvoiceStatus.Payed;
             this.ModifiedOn = DateTime.UtcNow;
         }
+
+
+        public void Update(string city, string state, string postalCode)
+        {
+            City = city;
+            State = state;
+            PostalCodem = postalCode;
+        }
     }
+
 
 }

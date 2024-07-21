@@ -16,10 +16,18 @@ namespace Application.Users.DeleteUser
     {
         public async Task<DeleteUserCommandResponse> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            int id = request.Id;
-            repository.Delete(id);
+            var User = repository.GetById(request.Id);
+            if (User == null)
+            {
+                throw new NullReferenceException(nameof(request.Id));
+            }
+            else
+            {
+                int id = request.Id;
+                repository.Delete(id);
 
-            return new DeleteUserCommandResponse(id);
+                return new DeleteUserCommandResponse(id);
+            }
         }
     }
 

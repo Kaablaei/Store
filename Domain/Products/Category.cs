@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Domain.Products
 {
@@ -22,15 +23,20 @@ namespace Domain.Products
             {
                 Name = name,
                 CreateOn = DateTime.UtcNow,
-                CratetdAgent="",
-                CreatedIP= "",
-                ModifyAgent= "",
-                ModifyIP= ""
+                CratetdAgent = "",
+                CreatedIP = "",
+                ModifyAgent = "",
+                ModifyIP = ""
 
             };
         }
-    }
+        public void Update(string name)
+        {
 
+            Name = name;
+        }
+
+    }
     //public class Sample
     //{
     //    public Sample()

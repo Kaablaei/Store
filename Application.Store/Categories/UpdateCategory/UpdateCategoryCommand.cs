@@ -19,6 +19,11 @@ namespace Application.Categories.UpdateCategory
         {
             var category = repository.GetById(request.Id);
 
+            if(category == null)
+            {
+                throw new NullReferenceException(nameof(request.Id));
+            }
+
             category.Name = request.Name;
 
             repository.Update(category);

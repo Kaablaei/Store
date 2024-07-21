@@ -32,7 +32,6 @@ namespace Domain.Products
                 CreatedIP = "",
                 ModifyAgent = "",
                 ModifyIP = "",
-
                 ProductId = progetctid,
                 Color = color,
                 Size = size,
@@ -40,6 +39,16 @@ namespace Domain.Products
                 SalePrice = saleproce,
                
             };
+
+        }
+
+        public void Update(int progetctid, string color, string size, decimal price,   decimal saleprice, int invoiceid)
+        {
+            ProductId = progetctid;
+            Color = color;
+            Size = size;
+            Price = price;
+            SalePrice = saleprice;
         }
 
     }

@@ -18,11 +18,18 @@ namespace Application.Categories.DeleteCategory
     {
         public async Task<DeleteCategoryCommandResponce> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
+            var Categoty = repository.GetById(request.Id);
+            if (Categoty == null)
+            {
+                throw new NullReferenceException(nameof(request.Id));
+            }
+            else
+            {
+                int id = request.Id;
+                repository.Delete(id);
 
-            int id = request.Id;
-            repository.Delete(id);
-
-            return new DeleteCategoryCommandResponce(id);
+                return new DeleteCategoryCommandResponce(id);
+            }
         }
     }
 }

@@ -17,11 +17,11 @@ namespace Application.Products.UpdateProduct
         public async Task<UpdateProductCommandResponse> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
             var product = repository.GetById(request.Id);
-            product.SKU = request.SKU;
-            product.Title = request.Title;
-            product.Picter = request.Picter;
-            product.CategoryId = request.CategoryId;
-            repository.Update(product);
+
+            if (product == null)
+            {
+                throw new NullReferenceException(nameof(request.Id));
+            }
 
             return new UpdateProductCommandResponse(product.Id);
         }

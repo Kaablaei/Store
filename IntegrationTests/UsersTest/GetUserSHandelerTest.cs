@@ -1,16 +1,12 @@
-﻿using Application.Invoices.GetInvoices;
+﻿
 using Application.Users.GetAll;
-using Domain.Invoices;
+
 using Domain.Users;
-using Domain.Users.Repository;
+
 using FluentAssertions;
 using Infrastructure.Repositories;
 using IntegrationTests.Fixture;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace IntegrationTests.UsersTest
 {

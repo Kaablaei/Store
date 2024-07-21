@@ -1,4 +1,5 @@
 ﻿using Application.Users.Create;
+using Application.Users.DeleteUser;
 using Application.Users.UpdateUser;
 using Domain.Users;
 using Domain.Users.Repository;
@@ -51,48 +52,63 @@ namespace IntegrationTests.Users
         [Fact]
         public async Task Handle_Should_Update_User()
         {
-            // Arrange
-
+            //arrange
             string dbName = Guid.NewGuid().ToString();
-            var repo = new UserRepositories(_fixture.BuildDbContext(dbName));
+            var dbContext = _fixture.BuildDbContext(dbName);
+            var repo = new UserRepositories(dbContext);
+
 
             var user = User.Create("ali", "ali", "1", "A@a.com");
+            repo.Create(user);
 
-            var Command = new UpdateUserCommand(user.Id, "John", "Mamad", "123", "john.com");
-
-
-
+            var command = new UpdateUserCommand(user.Id, "Mamad", "Mamad", "123", "john.com");
             var handler = new UpdateUserCommandHandler(repo);
 
             // act
-            var result = await handler.Handle(Command, CancellationToken.None);
+            var result = await handler.Handle(command, CancellationToken.None);
 
             // assert
-           
-            user.Id.Should().BeGreaterThan(0);
-            user.Name.Should().NotBe("ali");
-            user.Name.Should().Be("John");
+            result.Should().NotBeNull();
+            result.id.Should().Be(user.Id);
+
+
+            var updatedUser = repo.GetById(user.Id);
+            updatedUser.Should().NotBeNull();
+            updatedUser.Name.Should().Be("John");
 
         }
+
 
 
 
         [Fact]
         public async Task Handle_Should_Delete_User()
         {
-
             string dbName = Guid.NewGuid().ToString();
+            var dbContext = _fixture.BuildDbContext(dbName);
+            var repo = new UserRepositories(dbContext);
 
-            var repo = new UserRepositories(_fixture.BuildDbContext(dbName));
 
-            var handel = new CrateUserCommandHandler(repo);
-            //act
-            var command = new CreateUserCommand("ali", "ali", "1", "A@a.com");
+            var user = User.Create("ali", "ali", "1", "A@a.com");
+            repo.Create(user);
 
-            var result = await handel.Handle(command, CancellationToken.None);
+            var command = new DeleteUserCommand(user.Id);
+            var handler = new DeleteUserCommandHandler(repo);
+
+
+            var result = await handler.Handle(command, CancellationToken.None);
+
+
+            result.Should().NotBeNull();
+            result.Id.Should().Be(user.Id);
+
+
+            var deletedUser = repo.GetById(user.Id);
+            deletedUser.Should().BeNull();
+
 
 
         }
+
     }
 }
-
