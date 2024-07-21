@@ -18,11 +18,19 @@ namespace Application.Products.DeletProduct
     {
         public async Task<DeleteProductCommandResponse> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
-            int id = request.Id;
-            repository.Delete(id);
+           
+            var product = repository.GetById(request.Id);
+            if(product == null)
+            {
+                throw new NullReferenceException(nameof(request.Id));
+            }
+            else
+            {
+                int id = request.Id;
+                repository.Delete(id);
 
-            return new DeleteProductCommandResponse(id);
-
+                return new DeleteProductCommandResponse(id);
+            }
         }
     }
 }

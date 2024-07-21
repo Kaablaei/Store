@@ -20,14 +20,15 @@ namespace Application.Users.UpdateUser
         {
             var user = repository.GetById(request.Id);
 
-            user.Name = request.name;
-            user.Family = request.family;
-            user.Phone = request.phone;
-            user.Email = request.email;
+            if (user == null)
+                throw new NullReferenceException(nameof(request.Id));
 
-            repository.Update(user);
-
-            return new UpdateUserCommandResponse(user.Id);
+            else
+            {
+                user.Update(request.name, request.family, request.phone, request.email);
+                repository.Update(user);
+                return new UpdateUserCommandResponse(user.Id);
+            }
         }
     }
 }

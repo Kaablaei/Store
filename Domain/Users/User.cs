@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,6 +38,14 @@ namespace Domain.Users
                 Phone = phone,
                 Email = email,
             };
+        }
+
+
+        public  void Update(string name, string family, string phone, string email)
+        {
+            Name = name;
+            Family = family;
+
         }
 
     }
