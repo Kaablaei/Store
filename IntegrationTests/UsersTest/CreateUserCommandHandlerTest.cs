@@ -1,4 +1,6 @@
-﻿using Application.Users.Create;
+﻿using Application.Products.CreateProduct;
+using Application.Users.Create;
+using Application.Users.DeleteUser;
 using Application.Users.UpdateUser;
 using Domain.Users;
 using Domain.Users.Repository;
@@ -26,7 +28,6 @@ namespace IntegrationTests.Users
         public async Task Handle_Should_Create_User()
         {
 
-
             //arrange
             string dbName = Guid.NewGuid().ToString();
 
@@ -51,16 +52,14 @@ namespace IntegrationTests.Users
         [Fact]
         public async Task Handle_Should_Update_User()
         {
-            // Arrange
+            // arrange
 
             string dbName = Guid.NewGuid().ToString();
             var repo = new UserRepositories(_fixture.BuildDbContext(dbName));
 
-            var user = User.Create("ali", "ali", "1", "A@a.com");
-
-            var Command = new UpdateUserCommand(user.Id, "John", "Mamad", "123", "john.com");
-
-
+            var user = User.Create("ali", "aliF", "1", "A@a.com");
+            var userid = repo.Create(user);
+            var Command = new UpdateUserCommand(userid, "Mamad", "MamadZade");
 
             var handler = new UpdateUserCommandHandler(repo);
 
@@ -68,10 +67,10 @@ namespace IntegrationTests.Users
             var result = await handler.Handle(Command, CancellationToken.None);
 
             // assert
-           
+
             user.Id.Should().BeGreaterThan(0);
             user.Name.Should().NotBe("ali");
-            user.Name.Should().Be("John");
+            user.Name.Should().Be("Mamad");
 
         }
 
@@ -80,19 +79,31 @@ namespace IntegrationTests.Users
         [Fact]
         public async Task Handle_Should_Delete_User()
         {
+           
 
-            string dbName = Guid.NewGuid().ToString();
+            // arrange
+            string dbName = Guid.NewGuid().ToString(); 
+            var dbContext = _fixture.BuildDbContext(dbName); 
+            var repo = new UserRepositories(dbContext); 
 
-            var repo = new UserRepositories(_fixture.BuildDbContext(dbName));
+            var user = User.Create("ali", "aliF", "1", "A@a.com");
+            var userId = repo.Create(user);
 
-            var handel = new CrateUserCommandHandler(repo);
-            //act
-            var command = new CreateUserCommand("ali", "ali", "1", "A@a.com");
+            var command = new DeleteUserCommand(userId);
+            var handler = new DeleteUserCommandHandler(repo);
 
-            var result = await handel.Handle(command, CancellationToken.None);
+            // act
+            await handler.Handle(command, CancellationToken.None);
 
+            // assert
+            var deletedUser = repo.GetById(userId);
+            deletedUser.Should().BeNull(); 
 
         }
+
+    
+       
+
     }
 }
 

@@ -11,9 +11,9 @@ namespace Domain.Products.Repository
         int Create(Variation variation);
 
         int Update(Variation variation);
-        Variation GetById(int id);
+        Variation GetById(int id, bool tracking = false);
         IReadOnlyCollection<Variation> GetPaged(int pageNo, int pageSize);
 
-        void Delete(int id);
+        void Delete(int id, bool tracking = false);
     }
 }

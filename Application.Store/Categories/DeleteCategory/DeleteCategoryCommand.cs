@@ -1,4 +1,5 @@
 ﻿using Application.Products.DeletProduct;
+using Domain.Products;
 using Domain.Products.Repository;
 using MediatR;
 using System;
@@ -14,10 +15,13 @@ namespace Application.Categories.DeleteCategory
     public record DeleteCategoryCommandResponce(int Id);
 
 
-    public class DeleteCategoryCommandHandler(IProductRepository repository) : IRequestHandler<DeleteCategoryCommand, DeleteCategoryCommandResponce>
+    public class DeleteCategoryCommandHandler(ICategoryRepository repository) : IRequestHandler<DeleteCategoryCommand, DeleteCategoryCommandResponce>
     {
         public async Task<DeleteCategoryCommandResponce> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
+            var category = repository.GetById(request.Id);
+            if (category == null)
+                throw new NullReferenceException(nameof(request.Id));
 
             int id = request.Id;
             repository.Delete(id);

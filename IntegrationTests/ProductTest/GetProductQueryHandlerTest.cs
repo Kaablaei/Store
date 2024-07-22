@@ -33,7 +33,7 @@ namespace IntegrationTests.ProductTest
             string dbName = Guid.NewGuid().ToString();
             
             var repo = new ProductRepositories(_fixture.BuildDbContext(dbName));
-            var product = Product.Create("2", "2", 50.60M, 12);
+            var product = Product.Create("2", "2", 12);
             var productId = repo.Create(product);
 
             var query = new GetProductQuery(productId);

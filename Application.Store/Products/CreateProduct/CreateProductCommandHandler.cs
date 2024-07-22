@@ -20,7 +20,7 @@ namespace Application.Products.CreateProduct
                 throw new NullReferenceException(nameof(request.CategoryId));
             }
 
-            var product = Product.Create(" a", request.Title, request.Price, request.CategoryId);
+            var product = Product.Create(" a", request.Title,  request.CategoryId);
             var id = repository.Create(product);
 
             return new CreateProductCommandResponse(id);

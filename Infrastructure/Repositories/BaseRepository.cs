@@ -28,10 +28,13 @@ namespace Infrastructure.Repositories
             return entity.Id;
         }
 
-        public virtual T? GetById(int id)
+        public virtual T? GetById(int id, bool tracking = false)
         {
-            return _entity
-                .AsNoTracking()
+            var query = _entity.AsQueryable();
+            if (tracking)
+                query = query.AsNoTracking();
+            return query
+
                 .SingleOrDefault(p => p.Id == id);
         }
 
@@ -46,14 +49,18 @@ namespace Infrastructure.Repositories
             return entity.Id;
         }
 
-        public void Delete(int id)
+        public void Delete(int id
+            , bool tracking = false)
         {
 
-            var En = _entity
-                .AsNoTracking()
-                .SingleOrDefault(p => p.Id == id);
+            var query = _entity.AsQueryable();
+            if (tracking)
+                query = query.AsNoTracking();
 
-            _db.Update(En);
+
+            var En = query.SingleOrDefault(p => p.Id == id);
+
+            _db.Remove(En);
             _db.SaveChanges();
 
         }

@@ -1,5 +1,9 @@
 ﻿using Application.Carts.CreateCart;
+using Application.Carts.DeleteCart;
+using Application.Carts.UpdateCart;
+using Application.Categories.UpdateCategory;
 using Application.Users.Create;
+using Domain.Invoices;
 using Domain.Products;
 using Domain.Users;
 using FluentAssertions;
@@ -10,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace IntegrationTests.CartOrInvoiceDetail
 {
@@ -96,6 +101,55 @@ namespace IntegrationTests.CartOrInvoiceDetail
             //assert
             await act.Should().ThrowAsync<NullReferenceException>();
 
+
+        }
+
+        [Fact]
+        public async Task Handle_Should_Update_CartOrInvoicedetail()
+        {
+            // arrange
+
+            string dbName = Guid.NewGuid().ToString();
+            var repo = new CartRepository(_fixture.BuildDbContext(dbName));
+
+            var cart = CartOrInvoiceDtail.Create(10,2,20,30,4);
+            var cartid = repo.Create(cart);
+            var Command = new UpdateCartCommand(cartid,15,25,5,1);
+
+            var handler = new UpdateCartCommandHandler(repo);
+
+            // act
+            var result = await handler.Handle(Command, CancellationToken.None);
+
+            // assert
+
+            cart.Id.Should().BeGreaterThan(0);
+            cart.Price.Should().NotBe(20);
+            cart.Price.Should().Be(15);
+
+
+        }
+
+        [Fact]
+        public async Task Handle_Should_Delete_CartOrInvoicedetail()
+        {
+            // arrange
+
+            string dbName = Guid.NewGuid().ToString();
+            var repo = new CartRepository(_fixture.BuildDbContext(dbName));
+
+            var cart = CartOrInvoiceDtail.Create(10, 2, 20, 30, 4);
+            var cartid = repo.Create(cart);
+            var Command = new DeleteCartCommand(cartid);
+
+            var handler = new DeleteCartCommandHandler(repo);
+
+            // act
+            await handler.Handle(Command, CancellationToken.None);
+
+            // assert
+            var deletedUser = repo.GetById(cartid);
+            deletedUser.Should().BeNull();
 
         }
     }

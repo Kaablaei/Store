@@ -15,21 +15,24 @@ namespace Domain.Invoices
     {
         public int UserId { get; set; }
         public User User { get; set; }
-
-
-        //invoic
         public Invoice invoice { get; set; }
-
         public int? InvoiceId { get; set; }
-
-
         public int Count { get; set; }
         public int VaridationId { get; set; }
         public Variation variation { get; set; }
         public decimal Price { get; set; }
-
         public decimal SalePrice { get; set; }
-        public static CartOrInvoiceDtail Create(int userid, int validationid, decimal price, decimal saleprice)
+
+   
+        public void Update(decimal Price, decimal SalePrice, int count, int varidationId)
+        {
+            this.SalePrice = SalePrice;
+            this.Price = Price;
+            Count = count;
+            VaridationId = varidationId;
+        }
+
+        public static CartOrInvoiceDtail Create(int userid, int validationid, decimal price, decimal saleprice, int count)
         {
             price = Guard.Against.NegativeOrZero(price);
             saleprice = Guard.Against.NegativeOrZero(saleprice);
@@ -44,9 +47,12 @@ namespace Domain.Invoices
                 UserId = userid,
                 VaridationId = validationid,
                 Price = price,
-                SalePrice = saleprice
+                SalePrice = saleprice,
+                Count = count
             };
 
         }
+
+
     }
 }

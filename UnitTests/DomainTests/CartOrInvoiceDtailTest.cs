@@ -21,7 +21,7 @@ namespace UnitTests.DomainTests
             decimal saleprice = 12.56m;
 
             //act
-            var ci = CartOrInvoiceDtail.Create(userid, valiuatoin, price, saleprice);
+            var ci = CartOrInvoiceDtail.Create(userid, valiuatoin, price, saleprice,1);
             //assert
 
             ci.Should().NotBeNull();

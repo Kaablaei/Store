@@ -17,7 +17,7 @@ namespace Infrastructure.Configuration.Products
             builder.ToTable("Products");
             builder.Property(p => p.SKU).IsRequired().HasMaxLength(255);
             builder.Property(p => p.Title).IsRequired().HasMaxLength(255);
-            builder.Property(p => p.Picter).IsRequired().HasMaxLength(255);
+         
 
 
             builder.HasOne(p => p.Category).WithMany()

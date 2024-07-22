@@ -42,7 +42,7 @@ namespace API.Controller
             if (requestDto.CategoryId == null) return NotFound();
 
 
-            var command = new CreateProductCommand(requestDto.SKU,requestDto.Title,requestDto.Picter,requestDto.CategoryId);
+            var command = new CreateProductCommand(requestDto.SKU,requestDto.Title,requestDto.CategoryId);
             var result = await mediator.Send(command);
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
 

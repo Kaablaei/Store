@@ -18,14 +18,14 @@ namespace UnitTests.DomainTests
             string title = "Title";
 
             //act
-            var product = Product.Create(sku,title,20M,1);
+            var product = Product.Create(sku,title,1);
 
             //assets
 
             product.Should().NotBeNull();
             product.SKU.Should().Be(sku);
             product.Title.Should().Be(title);
-            product.Picter.Should().Be(20M);
+          
             product.CategoryId.Should().Be(1);
         }
     }

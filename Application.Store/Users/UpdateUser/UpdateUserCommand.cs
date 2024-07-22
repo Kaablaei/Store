@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Users.UpdateUser
 {
-    public record UpdateUserCommand(int Id, string name, string family, string phone, string email) : IRequest<UpdateUserCommandResponse>;
+    public record UpdateUserCommand(int Id, string name, string family) : IRequest<UpdateUserCommandResponse>;
 
 
     public record UpdateUserCommandResponse(int id);
@@ -18,16 +18,17 @@ namespace Application.Users.UpdateUser
     {
         public async Task<UpdateUserCommandResponse> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = repository.GetById(request.Id);
+            var user = repository.GetById(request.Id,true);
 
             if (user == null)
                 throw new NullReferenceException(nameof(request.Id));
 
             else
             {
-                user.Update(request.name, request.family, request.phone, request.email);
+                user.Update(request.name, request.family);
                 repository.Update(user);
                 return new UpdateUserCommandResponse(user.Id);
+
             }
         }
     }

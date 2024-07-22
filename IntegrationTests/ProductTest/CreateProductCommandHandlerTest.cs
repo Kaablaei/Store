@@ -1,10 +1,15 @@
 ﻿using Application.Products.CreateProduct;
+using Application.Products.DeletProduct;
+using Application.Products.UpdateProduct;
 using Application.Users.Create;
+using Application.Users.UpdateUser;
 using Domain.Products;
 using Domain.Products.Repository;
+using Domain.Users;
 using FluentAssertions;
 using Infrastructure.Repositories;
 using IntegrationTests.Fixture;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +25,7 @@ namespace IntegrationTests.ProductTest
 
         public CreateProductCommandHandlerTest(DbContextFixture fixture)
         {
-          
+
             _fixture = fixture;
         }
 
@@ -29,10 +34,6 @@ namespace IntegrationTests.ProductTest
         {
             //arrange
             string dbName = Guid.NewGuid().ToString();
-    
-
-             
-
 
             var repo = new ProductRepositories(_fixture.BuildDbContext(dbName));
             var categoyRepo = new CategoryRepositories(_fixture.BuildDbContext(dbName));
@@ -41,13 +42,12 @@ namespace IntegrationTests.ProductTest
             var category = Category.Create("مبایل ");
 
             categoyRepo.Create(category);
-           
+
             //act 
 
-            var command = new CreateProductCommand("2694_msda","سامسوگ A50", 100.56m, category.Id);
+            var command = new CreateProductCommand("2694_msda", "سامسوگ A50", category.Id);
 
             var result = await handel.Handle(command, CancellationToken.None);
-
 
             //assert
 
@@ -74,14 +74,55 @@ namespace IntegrationTests.ProductTest
 
             //act 
 
-            var command = new CreateProductCommand("2694_msda", "سامسوگ A50", 100.56m, 68768);
+            var command = new CreateProductCommand("2694_msda", "سامسوگ A50", 68768);
 
-            Func<Task>  act = async() => await handel.Handle(command, CancellationToken.None);
+            Func<Task> act = async () => await handel.Handle(command, CancellationToken.None);
 
             //assert
 
             await act.Should().ThrowAsync<NullReferenceException>();
 
+
+        }
+
+
+        [Fact]
+        public async Task Handle_Should_Update_Product()
+        {
+            string dbName = Guid.NewGuid().ToString();
+            var repo = new ProductRepositories(_fixture.BuildDbContext(dbName));
+            var product = Product.Create("10MP", "کفش زنانه", 5);
+            var prucutId = repo.Create(product);
+
+            var Command = new UpdateProductCommand(prucutId, "20Pm", "لباش مردانه", 5);
+            var handler = new UpdateProductCommandHandler(repo);
+
+
+            var result = await handler.Handle(Command, CancellationToken.None);
+
+            product.Id.Should().BeGreaterThan(0);
+            product.Title.Should().NotBe("کفش زنانه");
+            product.Title.Should().Be("لباش مردانه");
+        }
+
+        [Fact]
+        public async Task Handle_Should_Delete_Product()
+        {
+            string dbName = Guid.NewGuid().ToString();
+            var dbContext = _fixture.BuildDbContext(dbName);
+            var repo = new ProductRepositories(dbContext);
+
+            var product = Product.Create("10MP", "کفش زنانه", 5);
+            var prucutId = repo.Create(product);
+
+            var command = new DeleteProductCommand(prucutId);
+            var handler = new DeleteProductCommandHandler(repo);
+
+            await handler.Handle(command, CancellationToken.None);
+
+
+            var deletedUser = repo.GetById(prucutId);
+            deletedUser.Should().BeNull();
 
         }
     }

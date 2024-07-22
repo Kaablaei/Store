@@ -29,7 +29,7 @@ namespace Domain.Invoices
         public string State { get; set; }
         public string PostalCode { get; set; }
 
-
+     
 
 
         public InvoiceStatus Statuse { get; set; }

@@ -12,8 +12,8 @@ namespace Domain.Products.Repository
         int Create(Category product);
 
         int Update(Category product);
-        Category? GetById(int id);
-        void Delete(int id);
+        Category? GetById(int id, bool tracking = false);
+        void Delete(int id, bool tracking = false);
 
         IReadOnlyCollection<Category> GetPaged(int pageNo, int pageSize);
 

@@ -16,9 +16,12 @@ namespace Domain.Users
         public string City { get; set; }
         public string State { get; set; }
         public string PostalCode { get; set; }
-
-
-
+        public void Update(string city, string state, string postalcode)
+        {
+            City = city;
+            State = state;
+            PostalCode = postalcode;
+        }
 
         public static Address Create(string city, string state, string postcart)
         {

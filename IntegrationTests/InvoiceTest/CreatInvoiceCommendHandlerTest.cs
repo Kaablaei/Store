@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace IntegrationTests.InvoiceTest
 {
-    public class CreatInvoiceCommendHandlerTest: IClassFixture<DbContextFixture>
+    public class CreatInvoiceCommendHandlerTest : IClassFixture<DbContextFixture>
     {
         private readonly DbContextFixture _fixture;
 
         public CreatInvoiceCommendHandlerTest(DbContextFixture fixture)
         {
-            _fixture = fixture; 
+            _fixture = fixture;
         }
 
 
@@ -33,7 +33,7 @@ namespace IntegrationTests.InvoiceTest
             var handler = new CreateInvoiceCommandHandler(repo);
 
             //act
-            var command = new CreateInvoiceCommand("1586945210",12, 20.50M);
+            var command = new CreateInvoiceCommand("1586945210", 12, 20.50M);
             var result = await handler.Handle(command, CancellationToken.None);
             //assert
 
@@ -43,5 +43,6 @@ namespace IntegrationTests.InvoiceTest
             invoce.Should().NotBeNull();
             invoce.InvoiceNo.Should().Be(command.InvoiceNo);
         }
+        
     }
 }

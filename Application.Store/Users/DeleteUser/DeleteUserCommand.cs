@@ -10,12 +10,17 @@ using System.Threading.Tasks;
 namespace Application.Users.DeleteUser
 {
     public record DeleteUserCommand(int Id) : IRequest<DeleteUserCommandResponse>;
-    
-    public record DeleteUserCommandResponse(int Id );
+
+    public record DeleteUserCommandResponse(int Id);
     public class DeleteUserCommandHandler(IUserReopsitory repository) : IRequestHandler<DeleteUserCommand, DeleteUserCommandResponse>
     {
         public async Task<DeleteUserCommandResponse> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
+            var user = repository.GetById(request.Id);
+            if (user == null)
+            {
+                throw new NullReferenceException(nameof(request.Id));
+            }
             int id = request.Id;
             repository.Delete(id);
 

@@ -1,4 +1,12 @@
-﻿using Application.Categorys.CreateCategory;
+﻿using Application.Carts.DeleteCart;
+using Application.Carts.UpdateCart;
+using Application.Categories.DeleteCategory;
+using Application.Categories.UpdateCategory;
+using Application.Categorys.CreateCategory;
+using Application.Users.DeleteUser;
+using Application.Users.UpdateUser;
+using Domain.Products;
+using Domain.Users;
 using FluentAssertions;
 using Infrastructure;
 using Infrastructure.Repositories;
@@ -10,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace IntegrationTests.CategoryTests
 {
@@ -55,6 +64,64 @@ namespace IntegrationTests.CategoryTests
             category.Should().NotBeNull();
             category?.Name.Should().Be(command.name);
         }
+
+
+
+
+        [Fact]
+        public async Task Handle_Should_Update_Category()
+        {
+            // arrange
+
+            string dbName = Guid.NewGuid().ToString();
+            var repo = new CategoryRepositories(_fixture.BuildDbContext(dbName));
+
+            var category = Category.Create("لوازم خانگی");
+            var categoryid = repo.Create(category);
+            var Command = new UpdateCategoryCommand(categoryid,"لوازم الکتریکی");
+
+            var handler = new UpdateCategoryCommandHandle(repo);
+
+            // act
+            var result = await handler.Handle(Command, CancellationToken.None);
+
+            // assert
+
+            category.Id.Should().BeGreaterThan(0);
+            category.Name.Should().NotBe("لوازم خانگی");
+            category.Name.Should().Be("لوازم الکتریکی");
+
+        }
+
+
+
+        [Fact]
+        public async Task Handle_Should_Delete_Category()
+        {
+
+
+            // arrange
+            string dbName = Guid.NewGuid().ToString();
+            var repo = new CategoryRepositories(_fixture.BuildDbContext(dbName));
+
+            var category = Category.Create("لوازم خانگی");
+            var categoryid = repo.Create(category);
+            var Command = new DeleteCategoryCommand(categoryid);
+
+            var handler = new DeleteCategoryCommandHandler(repo);
+
+            // act
+            var result = await handler.Handle(Command, CancellationToken.None);
+
+            
+           
+
+            // assert
+            var deletedUser = repo.GetById(categoryid);
+            deletedUser.Should().BeNull();
+
+        }
+
 
 
     }

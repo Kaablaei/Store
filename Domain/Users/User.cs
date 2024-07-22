@@ -41,7 +41,7 @@ namespace Domain.Users
         }
 
 
-        public  void Update(string name, string family, string phone, string email)
+        public  void Update(string name, string family)
         {
             Name = name;
             Family = family;

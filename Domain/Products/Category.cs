@@ -14,6 +14,10 @@ namespace Domain.Products
 
         public string Name { get; set; }
 
+        public void Update(string Name)
+        {
+            this.Name = Name;
+        }
 
         public static Category Create(string name)
         {
@@ -31,14 +35,7 @@ namespace Domain.Products
         }
     }
 
-    //public class Sample
-    //{
-    //    public Sample()
-    //    {
-    //        var t =  Category.Create("2");
-    //    }
-    //}
-
+   
 
 
 }

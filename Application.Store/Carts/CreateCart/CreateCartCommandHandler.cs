@@ -29,7 +29,7 @@ namespace Application.Carts.CreateCart
 
 
 
-            var cart = CartOrInvoiceDtail.Create(request.userid, request.validationid, request.price, request.saleprice);
+            var cart = CartOrInvoiceDtail.Create(request.userid, request.validationid, request.price, request.saleprice,1);
 
             var id = repository.Create(cart);
 

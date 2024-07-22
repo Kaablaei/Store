@@ -12,19 +12,16 @@ namespace Domain.Products
         public string SKU { get; set; }
         public string Title { get; set; }
 
-        public decimal Picter { get; set; }
-
-        //
-        public  int CategoryId { get; set; }
+        public int CategoryId { get; set; }
         public Category Category { get; set; }
 
 
         //
-        public static Product Create(string sku, string title, decimal price, int categoryid)
+        public static Product Create(string sku, string title, int categoryid)
         {
             sku = Guard.Against.NullOrEmpty(sku);
             title = Guard.Against.NullOrEmpty(title);
-            price = Guard.Against.NegativeOrZero(price);
+
 
             return new Product
             {
@@ -35,10 +32,23 @@ namespace Domain.Products
                 ModifyIP = "",
                 SKU = sku,
                 Title = title,
-                Picter = price,
+
                 CategoryId = categoryid
             };
+
+
         }
+
+
+        public void Update(string sku, string title, int categoryid)
+        {
+            SKU = sku;
+            Title = title;
+            CategoryId = categoryid;
+
+        }
+
+
     }
 }
 

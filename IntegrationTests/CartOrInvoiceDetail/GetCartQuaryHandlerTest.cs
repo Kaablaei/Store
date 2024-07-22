@@ -28,7 +28,7 @@ namespace IntegrationTests.CartOrInvoiceDetail
             var dbName = Guid.NewGuid().ToString();
             var repo = new CartRepository(_fixture.BuildDbContext(dbName));
 
-            var cart = CartOrInvoiceDtail.Create(1, 1, 1.1m, 1.1m);
+            var cart = CartOrInvoiceDtail.Create(1, 1, 1.1m, 1.1m,1);
         
 
            var cartid= repo.Create(cart);

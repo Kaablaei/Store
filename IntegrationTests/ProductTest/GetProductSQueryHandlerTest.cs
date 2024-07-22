@@ -27,9 +27,9 @@ namespace IntegrationTests.ProductTest
             var repo = new ProductRepositories(_fixture.BuildDbContext(dbName));
 
 
-            var product = Product.Create("1", "1", 1.1m, 1);
-            var product2 = Product.Create("2", "2", 2.2m, 2);
-            var product3 = Product.Create("3", "3", 3.3m, 3);
+            var product = Product.Create("1", "1", 1);
+            var product2 = Product.Create("2", "2", 2);
+            var product3 = Product.Create("3", "3", 3);
 
             repo.Create(product);
             repo.Create(product2);
