@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Users.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -15,6 +16,11 @@ namespace Infrastructure.Repositories
         public ProductRepositories(ApplicationDbContext db) : base(db)
         {
 
+        }
+
+        public Task<bool> CheckExist(int categoryId)
+        {
+            return _entity.AsNoTracking().AnyAsync(p => p.CategoryId == categoryId);
         }
     }
 

@@ -1,11 +1,4 @@
-﻿using Domain.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Invoices.Repository
+﻿namespace Domain.Invoices.Repository
 {
     public interface ICartRepository 
     {
@@ -16,7 +9,7 @@ namespace Domain.Invoices.Repository
         CartOrInvoiceDtail GetById(int id, bool tracking = false);
         IReadOnlyCollection<CartOrInvoiceDtail> GetPaged(int pageNo, int pageSize);
 
-        void Delete(int id, bool tracking = false);
+        void Delete(int id);
     }
  
 }

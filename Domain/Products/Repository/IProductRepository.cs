@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Products.Repository
+﻿namespace Domain.Products.Repository
 {
     public interface IProductRepository
     {
@@ -16,7 +10,10 @@ namespace Domain.Products.Repository
         Product? GetById(int id, bool tracking = false);
         IReadOnlyCollection<Product> GetPaged(int pageNo, int pageSize);
 
-        void Delete(int id, bool tracking = false);
+
+        Task<bool> CheckExist(int categoryId);
+
+        void Delete(int id);
 
 
     }

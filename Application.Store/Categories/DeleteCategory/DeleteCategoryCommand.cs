@@ -15,7 +15,7 @@ namespace Application.Categories.DeleteCategory
     public record DeleteCategoryCommandResponce(int Id);
 
 
-    public class DeleteCategoryCommandHandler(ICategoryRepository repository) : IRequestHandler<DeleteCategoryCommand, DeleteCategoryCommandResponce>
+    public class DeleteCategoryCommandHandler(ICategoryRepository repository,IProductRepository productRepository) : IRequestHandler<DeleteCategoryCommand, DeleteCategoryCommandResponce>
     {
         public async Task<DeleteCategoryCommandResponce> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
@@ -23,10 +23,14 @@ namespace Application.Categories.DeleteCategory
             if (category == null)
                 throw new NullReferenceException(nameof(request.Id));
 
-            int id = request.Id;
-            repository.Delete(id);
+            var exist =await  productRepository.CheckExist(request.Id);
+            if (exist)
+                throw new Exception("this category is in use");
+                
+          
+            repository.Delete(request.Id);
 
-            return new DeleteCategoryCommandResponce(id);
+            return new DeleteCategoryCommandResponce(request.Id);
         }
     }
 }

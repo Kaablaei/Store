@@ -13,7 +13,7 @@ namespace Infrastructure.Repositories
     public abstract class BaseRepository<T> where T : BaseEntity<int>
     {
         private ApplicationDbContext _db;
-        private readonly DbSet<T> _entity;
+        protected readonly DbSet<T> _entity;
 
         protected BaseRepository(ApplicationDbContext db)
         {
@@ -49,18 +49,11 @@ namespace Infrastructure.Repositories
             return entity.Id;
         }
 
-        public void Delete(int id
-            , bool tracking = false)
+        public void Delete(int id)
         {
+            var entity = _entity.Find(id);
 
-            var query = _entity.AsQueryable();
-            if (tracking)
-                query = query.AsNoTracking();
-
-
-            var En = query.SingleOrDefault(p => p.Id == id);
-
-            _db.Remove(En);
+            _entity.Remove(entity);
             _db.SaveChanges();
 
         }
@@ -68,10 +61,10 @@ namespace Infrastructure.Repositories
         public IReadOnlyCollection<T> GetPaged(int pageNo, int pageSize)
         {
             return _entity
-        .AsNoTracking()
-        .Skip((pageNo - 1) * pageSize)
-        .Take(pageSize)
-        .ToList();
+         .AsNoTracking()
+         .Skip((pageNo - 1) * pageSize)
+         .Take(pageSize)
+         .ToList();
 
         }
 

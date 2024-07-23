@@ -98,7 +98,7 @@ namespace IntegrationTests.ProductTest
             var handler = new UpdateProductCommandHandler(repo);
 
 
-            var result = await handler.Handle(Command, CancellationToken.None);
+             await handler.Handle(Command, CancellationToken.None);
 
             product.Id.Should().BeGreaterThan(0);
             product.Title.Should().NotBe("کفش زنانه");

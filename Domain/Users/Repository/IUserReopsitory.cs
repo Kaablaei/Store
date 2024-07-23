@@ -11,7 +11,7 @@ namespace Domain.Users.Repository
         User GetById(int id, bool tracking=false);
         IReadOnlyCollection<User> GetPaged(int pageNo, int pageSize);
 
-        void Delete(int id, bool tracking = false);
+        void Delete(int id);
 
 
     }

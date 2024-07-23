@@ -18,7 +18,7 @@ namespace Application.Users.UpdateUser
     {
         public async Task<UpdateUserCommandResponse> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = repository.GetById(request.Id,true);
+            var user = repository.GetById(request.Id,false);
 
             if (user == null)
                 throw new NullReferenceException(nameof(request.Id));

@@ -42,12 +42,10 @@ namespace IntegrationTests.UsersTest
             var handel = new GetUserQueryHamdler(repo);
 
             //act
-          
-         
+            
             var result = await handel.Handle(quary, CancellationToken.None);
 
             //assert
-
 
             result.Should().NotBeNull();
 

@@ -1,4 +1,7 @@
 ﻿using API.DTOs;
+using Application.Carts.GetCart;
+using Application.Categories.DeleteCategory;
+using Application.Categories.UpdateCategory;
 using Application.Categorys.CreateCategory;
 using Application.Categorys.GetCatrgory;
 using Application.Categorys.GetCatrgorys;
@@ -40,5 +43,38 @@ namespace TestApi.Controller
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, string name)
+        {
+
+            var FindCategory = new GetCategoryQuery(id);
+            if (FindCategory == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                var Command = new UpdateCategoryCommand(id, name);
+                var result = await mediator.Send(Command);
+                return Ok(result);
+            }
+            catch
+            {
+
+                return BadRequest();
+            }
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {            
+            var Command = new DeleteCategoryCommand(id);
+            var result = await mediator.Send(Command);
+            return NoContent();
+
+
+
+        }
     }
 }

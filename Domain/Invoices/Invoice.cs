@@ -29,7 +29,7 @@ namespace Domain.Invoices
         public string State { get; set; }
         public string PostalCode { get; set; }
 
-     
+
 
 
         public InvoiceStatus Statuse { get; set; }
@@ -53,7 +53,7 @@ namespace Domain.Invoices
                 ModifyIP = "",
                 PostalCode = "",
                 State = "",
-                TrackingCode = " ",
+                TrackingCode = "null",
 
                 AdressId = addressId,
                 Discount = discount,
@@ -65,6 +65,14 @@ namespace Domain.Invoices
             this.Statuse = InvoiceStatus.Payed;
             this.ModifiedOn = DateTime.UtcNow;
         }
+
+        public void Update(InvoiceStatus satuse, string trackingCode)
+        {
+            Statuse = satuse;
+            TrackingCode = trackingCode;
+
+        }
+
     }
 
 }

@@ -1,10 +1,4 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Domain.Invoices.Repository
 {
     public interface IInvoiveRepository
@@ -15,7 +9,7 @@ namespace Domain.Invoices.Repository
         Invoice? GetById(int id, bool tracking = false);
         IReadOnlyCollection<Invoice> GetPaged(int pageNo, int pageSize);
 
-        void Delete(int id, bool tracking = false);
+        void Delete(int id);
 
 
     }

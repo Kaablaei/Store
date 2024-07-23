@@ -55,16 +55,18 @@ namespace IntegrationTests.Users
             // arrange
 
             string dbName = Guid.NewGuid().ToString();
-            var repo = new UserRepositories(_fixture.BuildDbContext(dbName));
+            var dbContext = _fixture.BuildDbContext(dbName);
+            var repo = new UserRepositories(dbContext);
 
             var user = User.Create("ali", "aliF", "1", "A@a.com");
-            var userid = repo.Create(user);
-            var Command = new UpdateUserCommand(userid, "Mamad", "MamadZade");
+            var userId = repo.Create(user);
+
+            var Command = new UpdateUserCommand(userId, "Mamad", "MamadZade");
 
             var handler = new UpdateUserCommandHandler(repo);
 
             // act
-            var result = await handler.Handle(Command, CancellationToken.None);
+            await handler.Handle(Command, CancellationToken.None);
 
             // assert
 
