@@ -27,10 +27,6 @@ namespace TestApi.Controller
         {
             var query = new GetCategoryQuery(id);
             var result = await mediator.Send(query);
-            if (result == null)
-            {
-                return NotFound();
-            }
 
             return Ok(result);
         }
@@ -46,35 +42,17 @@ namespace TestApi.Controller
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, string name)
         {
-
-            var FindCategory = new GetCategoryQuery(id);
-            if (FindCategory == null)
-            {
-                return NotFound();
-            }
-            try
-            {
-                var Command = new UpdateCategoryCommand(id, name);
-                var result = await mediator.Send(Command);
-                return Ok(result);
-            }
-            catch
-            {
-
-                return BadRequest();
-            }
-
+            var Command = new UpdateCategoryCommand(id, name);
+            var result = await mediator.Send(Command);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
-        {            
+        {
             var Command = new DeleteCategoryCommand(id);
             var result = await mediator.Send(Command);
             return NoContent();
-
-
-
         }
     }
 }

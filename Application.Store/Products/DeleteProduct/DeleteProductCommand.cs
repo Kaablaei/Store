@@ -9,27 +9,29 @@ using System.Threading.Tasks;
 
 namespace Application.Products.DeletProduct
 {
-    public record DeleteProductCommand(int Id) : IRequest<DeleteProductCommandResponse>;
+    public record DeleteProductCommand(int id) : IRequest<DeleteProductCommandResponse>;
 
 
-    public record DeleteProductCommandResponse(int Id);
+    public record DeleteProductCommandResponse(int id);
 
-    public class DeleteProductCommandHandler(IProductRepository repository) : IRequestHandler<DeleteProductCommand, DeleteProductCommandResponse>
+    public class DeleteProductCommandHandler(IProductRepository repository,IVariationRepository variationRepository) : IRequestHandler<DeleteProductCommand, DeleteProductCommandResponse>
     {
         public async Task<DeleteProductCommandResponse> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
            
-            var product = repository.GetById(request.Id);
+            var product = repository.GetById(request.id);
             if(product == null)
             {
-                throw new NullReferenceException(nameof(request.Id));
+                throw new NullReferenceException(nameof(request.id));
             }
+            var exist = await variationRepository.CheckExist(request.id);
+            if (exist)
+                throw new Exception("this category is in use");
+
             else
             {
-                int id = request.Id;
-                repository.Delete(id);
-
-                return new DeleteProductCommandResponse(id);
+                repository.Delete(request.id);
+                return new DeleteProductCommandResponse(request.id);
             }
         }
     }

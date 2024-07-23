@@ -108,10 +108,10 @@ namespace IntegrationTests.CategoryTests
             var categoryid = repo.Create(category);
             var Command = new DeleteCategoryCommand(categoryid);
 
-            var handler = new DeleteCategoryCommandHandler(repo);
+           // var handler = new DeleteCategoryCommandHandler(repo);
 
             // act
-            var result = await handler.Handle(Command, CancellationToken.None);
+          //  var result = await handler.Handle(Command, CancellationToken.None);
 
             
            

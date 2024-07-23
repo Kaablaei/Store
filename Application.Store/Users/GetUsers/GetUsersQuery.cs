@@ -5,6 +5,6 @@ using System.Collections.ObjectModel;
 
 namespace Application.Users.GetAll
 {
-    public record GetUsersQuery(int PageNo, int PageSize) : IRequest<ReadOnlyCollection<GetUsersQueryResponse>>;
+    public record GetUsersQuery(int PageNo, int PageSize) : IRequest<IReadOnlyCollection<GetUsersQueryResponse>>;
 
 }

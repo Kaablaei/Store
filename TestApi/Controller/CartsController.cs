@@ -51,42 +51,22 @@ namespace API.Controller
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int Id, decimal Price, decimal SalePrice, int count, int variationid)
+        public async Task<IActionResult> Update(int id, decimal Price, decimal SalePrice, int count, int variationid)
         {
-
-            var Find = new GetCartQuer(Id);
-            if (Find == null)
-            {
-                return NotFound();
-            }
-            try
-            {
-                var Command = new UpdateCartCommand(Id, Price, SalePrice, count, variationid);
-                var result = await mediator.Send(Command);
-                return Ok(result);
-            }
-            catch
-            {
-
-                return BadRequest();
-            }
-
+            var Command = new UpdateCartCommand(id, Price, SalePrice, count, variationid);
+            var result = await mediator.Send(Command);
+            return Ok(result);
         }
+
 
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-
-            var Find = new GetCartQuer(id);
-            if (Find == null)
-            {
-                return NotFound();
-            }
-
-            var Command = new DeleteCartCommand(id);
+            var Command = new DeleteCategoryCommand(id);
             var result = await mediator.Send(Command);
-            return Ok(result);
+            return NoContent();
         }
+
     }
 }
