@@ -1,6 +1,54 @@
-@TestApi_HostAddress = https://localhost:44339
+@TestApi_HostAddress = https://localhost:7077
 
 GET {{TestApi_HostAddress}}/api/Category?pageNo=1
 Accept: application/json
 
 ###
+GET {{TestApi_HostAddress}}/api/User?pageNo=1
+Accept: application/json
+###
+GET {{TestApi_HostAddress}}/api/Product?pageNo=1
+Accept: application/json
+
+###
+GET {{TestApi_HostAddress}}/api/Invoce?pageNo=1
+Accept: application/json
+
+
+###
+GET {{TestApi_HostAddress}}/api/Carts?pageNo=1
+Accept: application/json
+
+
+
+###
+GET {{TestApi_HostAddress}}/api/Category/2
+Accept: application/json
+
+
+###
+GET {{TestApi_HostAddress}}/api/User/2
+Accept: application/json
+
+
+###
+GET {{TestApi_HostAddress}}/api/Invoce/4
+Accept: application/json
+
+###
+GET {{TestApi_HostAddress}}/api/Carts/2
+Accept: application/json
+
+
+###
+GET {{TestApi_HostAddress}}/api/Product/5
+Accept: application/json
+
+
+
+###
+GET {{TestApi_HostAddress}}/api/User/2
+Accept: application/json
+
+
+

@@ -52,7 +52,7 @@ namespace API.Controller
         {
             var Command = new UpdateInvoiceCommand(id, status,trackigcode);
             var result = await mediator.Send(Command);
-            return Ok(result);
+            return NoContent();
         }
     }
 }

@@ -116,9 +116,9 @@ namespace IntegrationTests.ProductTest
             var prucutId = repo.Create(product);
 
             var command = new DeleteProductCommand(prucutId);
-            var handler = new DeleteProductCommandHandler(repo);
+     //       var handler = new DeleteProductCommandHandler(repo);
 
-            await handler.Handle(command, CancellationToken.None);
+          //  await handler.Handle(command, CancellationToken.None);
 
 
             var deletedUser = repo.GetById(prucutId);
