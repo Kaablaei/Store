@@ -16,7 +16,7 @@ namespace Domain.Users
         public string Family { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-       
+
         public static User Create(string name, string family, string phone, string email)
         {
 
@@ -27,16 +27,18 @@ namespace Domain.Users
 
             return new User
             {
+
                 CreateOn = DateTime.UtcNow,
                 CratetdAgent = "",
                 CreatedIP = "",
                 ModifyAgent = "",
                 ModifyIP = "",
-                 Version=1, 
+                Version = 1,
                 Name = name,
                 Family = family,
                 Phone = phone,
                 Email = email,
+                
             };
         }
 
@@ -45,9 +47,6 @@ namespace Domain.Users
         {
             Name = name;
             Family = family;
-
         }
-
     }
-
 }

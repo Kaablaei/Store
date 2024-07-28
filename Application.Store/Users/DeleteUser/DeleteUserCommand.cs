@@ -24,7 +24,8 @@ namespace Application.Users.DeleteUser
             int id = request.Id;
             repository.Delete(id);
 
-            return new DeleteUserCommandResponse(id);
+                return new DeleteUserCommandResponse(id);
+            }
         }
     }
 

@@ -60,19 +60,21 @@ namespace Domain.Invoices
             };
         }
 
+
         public void Payed()
         {
             this.Statuse = InvoiceStatus.Payed;
             this.ModifiedOn = DateTime.UtcNow;
         }
 
-        public void Update(InvoiceStatus satuse, string trackingCode)
+
+        public void Update(string city, string state, string postalCode)
         {
-            Statuse = satuse;
-            TrackingCode = trackingCode;
-
+            City = city;
+            State = state;
+            PostalCodem = postalCode;
         }
-
     }
+
 
 }

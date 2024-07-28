@@ -7,8 +7,6 @@ namespace Domain.Products
 {
     public class Product : BaseEntity<int>
     {
-
-
         public string SKU { get; set; }
         public string Title { get; set; }
 
@@ -25,6 +23,7 @@ namespace Domain.Products
 
             return new Product
             {
+
                 CreateOn = DateTime.UtcNow,
                 CratetdAgent = "",
                 CreatedIP = "",
@@ -34,6 +33,7 @@ namespace Domain.Products
                 Title = title,
 
                 CategoryId = categoryid
+
             };
 
 

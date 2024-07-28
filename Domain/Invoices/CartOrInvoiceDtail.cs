@@ -52,6 +52,15 @@ namespace Domain.Invoices
             };
 
         }
+        public void Update(int userid, int validationid, decimal price, decimal saleprice)
+        {
+            UserId = userid;
+            VaridationId = validationid;
+            Price = price;
+            SalePrice = saleprice;
+
+        }
+
 
 
     }
