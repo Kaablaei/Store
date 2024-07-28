@@ -1,4 +1,5 @@
 ﻿using Domain.Invoices.Repository;
+using Domain.Products;
 using Domain.Products.Repository;
 using MediatR;
 using System;
@@ -19,7 +20,7 @@ namespace Application.Carts.DeleteCart
         {
             var cart = repository.GetById(request.Id);
             if (cart == null)
-                throw new NullReferenceException(nameof(request.Id));
+              throw new Exception("cart not found");
 
 
             int id = request.Id;

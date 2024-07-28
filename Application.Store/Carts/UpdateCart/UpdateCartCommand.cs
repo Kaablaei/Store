@@ -20,7 +20,7 @@ namespace Application.Carts.UpdateCart
         {
             var cart = repository.GetById(request.Id);
             if (cart == null)
-                throw new NullReferenceException(nameof(request.Id));
+                throw new Exception("cart not found");
 
             cart.Update(request.Price, request.SalePrice, request.count,request.variationid);
 

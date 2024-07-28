@@ -23,7 +23,7 @@ namespace Application.Invoices.Update
             var invoice = repository.GetById(request.Id);
             if (invoice == null)
             {
-                throw new NullReferenceException(nameof(request.Id));
+                throw new Exception("invoce not found");
 
             }
             invoice.Update(request.status, request.TrakingCode);

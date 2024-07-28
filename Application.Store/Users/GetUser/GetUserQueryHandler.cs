@@ -14,7 +14,7 @@ namespace Application.Users.Get
         public async Task<GetUserQueryResponse> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
             var user = _repo.GetById(request.Id);
-            if (user == null) throw new ArgumentNullException(nameof(user));
+            if (user == null) throw new Exception("User not found");
             return (GetUserQueryResponse)user;
         }
 

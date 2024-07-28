@@ -22,7 +22,7 @@ namespace Application.Products.DeletProduct
             var product = repository.GetById(request.id);
             if(product == null)
             {
-                throw new NullReferenceException(nameof(request.id));
+                throw new Exception("this product is in use");
             }
             var exist = await variationRepository.CheckExist(request.id);
             if (exist)

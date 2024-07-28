@@ -16,7 +16,7 @@ namespace Application.Carts.CreateCart
 
             if (user == null)
             {
-                throw new NullReferenceException(nameof(request.userid));
+                throw new Exception("User not found");
             }
 
 
@@ -24,7 +24,7 @@ namespace Application.Carts.CreateCart
 
             if (variation == null)
             {
-                throw new NullReferenceException(nameof(request.validationid));
+                throw new Exception("variation not found");
             }
 
 

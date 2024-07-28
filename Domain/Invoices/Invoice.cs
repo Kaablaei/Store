@@ -68,11 +68,10 @@ namespace Domain.Invoices
         }
 
 
-        public void Update(string city, string state, string postalCode)
+        public void Update(InvoiceStatus status, string trakingCode)
         {
-            City = city;
-            State = state;
-            PostalCodem = postalCode;
+            TrackingCode = trakingCode;
+            Statuse = status;
         }
     }
 

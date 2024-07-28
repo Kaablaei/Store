@@ -17,7 +17,7 @@ namespace Application.Products.CreateProduct
 
             if (category == null)
             {
-                throw new NullReferenceException(nameof(request.CategoryId));
+                throw new Exception("category not found");
             }
 
             var product = Product.Create(" a", request.Title,  request.CategoryId);
