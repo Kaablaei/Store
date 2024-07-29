@@ -27,7 +27,7 @@ namespace TestApi.Controller
         {
             var query = new GetCategoryQuery(id);
             var result = await mediator.Send(query);
-
+            if (result == null) return NotFound();
             return Ok(result);
         }
 

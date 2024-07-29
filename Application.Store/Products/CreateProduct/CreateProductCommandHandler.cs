@@ -1,11 +1,6 @@
 ﻿using Domain.Products;
 using Domain.Products.Repository;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Products.CreateProduct
 {
@@ -17,7 +12,7 @@ namespace Application.Products.CreateProduct
 
             if (category == null)
             {
-                throw new Exception("category not found");
+                throw new CustomeException("category not found");
             }
 
             var product = Product.Create(" a", request.Title,  request.CategoryId);

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.Categorys.GetCatrgory
 {
-    public class GetCategoryHamdler : IRequestHandler<GetCategoryQuery, GetCategoryQueryResponse>
+    public class GetCategoryHamdler : IRequestHandler<GetCategoryQuery, GetCategoryQueryResponse?>
     {
         private ICategoryRepository _repo;
         public GetCategoryHamdler(ICategoryRepository Repo)
@@ -11,9 +11,11 @@ namespace Application.Categorys.GetCatrgory
             _repo = Repo;
         }
 
-        public async Task<GetCategoryQueryResponse> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
+        public async Task<GetCategoryQueryResponse?> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
         {
             var cagory = _repo.GetById(request.Id);
+            if (cagory == null)
+                return null;
             return (GetCategoryQueryResponse)cagory;
 
         }

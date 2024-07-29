@@ -6,6 +6,7 @@ namespace Application.Carts.GetCart
     {
         public static explicit operator GetCartQueryResponse(CartOrInvoiceDtail cart)
         {
+
             return new GetCartQueryResponse(cart.Id, cart.SalePrice);
         }
 

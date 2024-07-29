@@ -24,14 +24,14 @@ namespace API.Controller
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
-        {
+        {   
             var query = new GetCartQuer(id);
-            var result = await mediator.Send(query);
-            if (result == null)
+            if (query == null)
             {
                 return NotFound();
             }
-            return Ok(result);
+            var result = await mediator.Send(query);
+            return Created("",result);
         }
 
         [HttpPost]

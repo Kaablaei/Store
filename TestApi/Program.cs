@@ -8,6 +8,7 @@ using Infrastructure;
 using Domain.Users.Repository;
 using Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
+using API.Handler;
 
 namespace TestApi
 {
@@ -24,11 +25,15 @@ namespace TestApi
 
             builder.Services.ConfigureApplicationLayer(builder.Configuration);
             builder.Services.ConfigureInfrastructureLayer(builder.Configuration);
-        
+            //
+
+
+            builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            
+           
+
             builder.Services.AddControllers();
             builder.Services.AddCors(options =>
             {
