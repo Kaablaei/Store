@@ -18,11 +18,10 @@ namespace Application.Products.UpdateProduct
         public async Task<UpdateProductCommandResponse> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
             var product = repository.GetById(request.Id);
-           if(product == null)
+            if (product == null)
             {
-                throw new Exception("product not found");
+                return null;
             }
-
 
             product.Update(request.SKU,request.Title,request.CategoryId);
             repository.Update(product);

@@ -31,7 +31,7 @@ namespace API.Controller
         {
             var query = new GetUserQuery(id);
             var result = await mediator.Send(query);
-        
+            if (result == null) return NotFound();
             return Ok(result);
         }
 
@@ -55,6 +55,7 @@ namespace API.Controller
         {
             var Command = new DeleteUserCommand(id);
             var result = await mediator.Send(Command);
+            if (result == null) return NotFound();
             return NoContent();
         }
     }

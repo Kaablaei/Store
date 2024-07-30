@@ -19,7 +19,7 @@ namespace Application.Categories.UpdateCategory
         {
             var category = repository.GetById(request.Id);
             if(category == null)
-                throw new NullReferenceException(nameof(request.Id));
+               throw new Exception(" category Not found");
 
             category.Update(request.Name);
 

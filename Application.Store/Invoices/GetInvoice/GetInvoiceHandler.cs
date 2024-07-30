@@ -15,6 +15,10 @@ namespace Application.Invoices.Get
         {
             var invoice = _repo.GetById(request.Id);
 
+            if (invoice == null)
+            {
+                return null;
+            }
             return (GetInvoiceQueryResponse)invoice;
 
         }

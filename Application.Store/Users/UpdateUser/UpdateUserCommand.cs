@@ -20,8 +20,10 @@ namespace Application.Users.UpdateUser
         {
             var user = repository.GetById(request.Id,false);
 
-            if (user == null)
-                throw new Exception("User not found");
+           if (user == null)
+            {
+                return null;
+            }
 
             else
             {

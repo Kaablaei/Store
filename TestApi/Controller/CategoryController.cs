@@ -52,6 +52,7 @@ namespace TestApi.Controller
         {
             var Command = new DeleteCategoryCommand(id);
             var result = await mediator.Send(Command);
+            if (result == null) return NotFound();
             return NoContent();
         }
     }

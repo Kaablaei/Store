@@ -31,11 +31,8 @@ namespace API.Controller
         {
             var query = new GetInvoiceQuery(id);
             var result = await mediator.Send(query);
-            if (result == null)
-            {
-                return NotFound();
-            }
-
+            if (result == null) return NotFound();
+          
             return Ok(result);
         }
 
@@ -52,6 +49,7 @@ namespace API.Controller
         {
             var Command = new UpdateInvoiceCommand(id, status,trackigcode);
             var result = await mediator.Send(Command);
+            if (result == null) return NotFound();
             return NoContent();
         }
     }

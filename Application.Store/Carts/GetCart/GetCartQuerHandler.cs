@@ -16,8 +16,7 @@ namespace Application.Carts.GetCart
 
             var cart = _repo.GetById(request.id);
             if(cart == null)
-                throw new CustomeException("Cart Not Found");
-
+                return null;
             return (GetCartQueryResponse)cart;
 
         }

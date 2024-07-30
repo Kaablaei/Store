@@ -28,13 +28,19 @@ namespace TestApi
             //
 
 
-            builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+        
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
            
 
             builder.Services.AddControllers();
+
+
+            builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+            builder.Services.AddProblemDetails();
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy(name: "AllowOrigin",
@@ -56,9 +62,17 @@ namespace TestApi
 
             app.UseHttpsRedirection();
             app.MapControllers();
+            app.UseExceptionHandler(o => { }); 
+
             app.UseAuthorization();
 
             app.Run();
         }
+
+        
+
+ 
     }
+
+   
 }

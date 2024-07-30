@@ -19,7 +19,7 @@ namespace Application.Users.DeleteUser
             var user = repository.GetById(request.Id);
             if (user == null)
             {
-                throw new Exception("User not found");
+                return null;
             }
             int id = request.Id;
             repository.Delete(id);

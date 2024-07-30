@@ -11,6 +11,7 @@ namespace Application.Invoices.CreateInvoice
             var invoce = Invoice.Create(request.InvoiceNo ,request.addressId,request.discount);
             var id = repository.Create(invoce);
 
+
             return new CreateInvoiceCommandResponse(id);
         }
     }

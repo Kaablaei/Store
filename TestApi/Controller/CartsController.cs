@@ -1,5 +1,6 @@
 ﻿using API.DTOs;
 using Application.Carts.CreateCart;
+using Application.Carts.DeleteCart;
 using Application.Carts.GetCart;
 using Application.Carts.GetCarts;
 using Application.Carts.UpdateCart;
@@ -26,12 +27,9 @@ namespace API.Controller
         public async Task<IActionResult> GetById(int id)
         {   
             var query = new GetCartQuer(id);
-            if (query == null)
-            {
-                return NotFound();
-            }
             var result = await mediator.Send(query);
-            return Created("",result);
+            if (result == null) return NotFound();
+            return Ok(result);
         }
 
         [HttpPost]
@@ -53,8 +51,9 @@ namespace API.Controller
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var Command = new DeleteCategoryCommand(id);
+            var Command = new DeleteCartCommand(id);
             var result = await mediator.Send(Command);
+            if (result == null) return NotFound();
             return NoContent();
         }
 

@@ -20,7 +20,8 @@ namespace Application.Carts.DeleteCart
         {
             var cart = repository.GetById(request.Id);
             if (cart == null)
-              throw new Exception("cart not found");
+
+                return null;
 
 
             int id = request.Id;

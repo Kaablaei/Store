@@ -1,4 +1,5 @@
 ﻿using Domain.Invoices.Repository;
+using Domain.Products;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Carts.UpdateCart
 {
-    public record UpdateCartCommand(int Id ,decimal Price, decimal SalePrice, int count, int variationid) : IRequest<UpdateCartCommandResponse>;
+    public record UpdateCartCommand(int Id, decimal Price, decimal SalePrice, int count, int variationid) : IRequest<UpdateCartCommandResponse>;
 
 
 
@@ -19,10 +20,14 @@ namespace Application.Carts.UpdateCart
         public async Task<UpdateCartCommandResponse> Handle(UpdateCartCommand request, CancellationToken cancellationToken)
         {
             var cart = repository.GetById(request.Id);
-            if (cart == null)
-                throw new Exception("cart not found");
 
-            cart.Update(request.Price, request.SalePrice, request.count,request.variationid);
+            if (cart == null)
+            {
+                return null;
+            }
+
+
+            cart.Update(request.Price, request.SalePrice, request.count, request.variationid);
 
             repository.Update(cart);
 

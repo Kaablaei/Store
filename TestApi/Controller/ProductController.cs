@@ -1,9 +1,4 @@
 ﻿using API.DTOs;
-using Application.Categories.DeleteCategory;
-using Application.Categories.UpdateCategory;
-using Application.Categorys.CreateCategory;
-using Application.Categorys.GetCatrgory;
-using Application.Categorys.GetCatrgorys;
 using Application.Products.CreateProduct;
 using Application.Products.DeletProduct;
 using Application.Products.GetProduct;
@@ -32,10 +27,7 @@ namespace API.Controller
         {
             var query = new GetProductQuery(id);
             var result = await mediator.Send(query);
-            if (result == null)
-            {
-                return NotFound();
-            }
+            if (result == null) return NotFound();
 
             return Ok(result);
         }
@@ -64,6 +56,7 @@ namespace API.Controller
         {
             var Command = new DeleteProductCommand(id);
             var result = await mediator.Send(Command);
+            if (result == null) return NotFound();
             return NoContent();
         }
     }
