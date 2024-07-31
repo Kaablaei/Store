@@ -45,6 +45,7 @@ namespace API.Controller
         {
             var Command = new UpdateCartCommand(id, Price, SalePrice, count, variationid);
             var result = await mediator.Send(Command);
+            if (result == null) return NotFound();
             return Ok(result);
         }
 

@@ -47,6 +47,10 @@ namespace API.Controller
         {
             var Command = new UpdateProductCommand(id, SKU, Title, CategoryId);
             var result = await mediator.Send(Command);
+           if(result == null)
+            {
+                return NotFound();
+            } 
             return Ok(result);
         }
 

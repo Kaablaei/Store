@@ -1,16 +1,10 @@
 ﻿using API.DTOs;
-using Application.Categories.DeleteCategory;
-using Application.Categories.UpdateCategory;
-using Application.Categorys.CreateCategory;
-using Application.Categorys.GetCatrgory;
-using Application.Categorys.GetCatrgorys;
 using Application.Users.Create;
 using Application.Users.DeleteUser;
 using Application.Users.Get;
 using Application.Users.GetAll;
 using Application.Users.UpdateUser;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controller
@@ -47,6 +41,7 @@ namespace API.Controller
         {
             var Command = new UpdateUserCommand(id, name,family);
             var result = await mediator.Send(Command);
+            if (result == null) return NotFound();
             return Ok(result);
         }
 

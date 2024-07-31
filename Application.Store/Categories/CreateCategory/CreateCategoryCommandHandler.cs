@@ -24,7 +24,6 @@ namespace Application.Categorys.CreateCategory
         {
             //Call api....
             return 1;
-
         }
     }
 

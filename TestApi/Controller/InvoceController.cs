@@ -41,6 +41,7 @@ namespace API.Controller
         {
             var command = new CreateInvoiceCommand(requestDto.InvoiceNo,requestDto.AdressId,requestDto.Discount);
             var result = await mediator.Send(command);
+          
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
         }
 
@@ -50,7 +51,7 @@ namespace API.Controller
             var Command = new UpdateInvoiceCommand(id, status,trackigcode);
             var result = await mediator.Send(Command);
             if (result == null) return NotFound();
-            return NoContent();
+            return Ok();
         }
     }
 }

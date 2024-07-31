@@ -21,13 +21,17 @@ namespace Application.Categories.DeleteCategory
         {
             var category = repository.GetById(request.Id);
             if (category == null)
+            {
+                return null;
                 throw new Exception("category not found");
+            }
+                
 
             var exist =await  productRepository.CheckExist(request.Id);
             if (exist)
-                throw new Exception("this Category is in use");
-                
-          
+                return null;
+
+
             repository.Delete(request.Id);
 
             return new DeleteCategoryCommandResponce(request.Id);

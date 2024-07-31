@@ -18,8 +18,8 @@ namespace Application.Categories.UpdateCategory
         public async Task<UpdateCategoryCommandResponse> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
             var category = repository.GetById(request.Id);
-            if(category == null)
-               throw new Exception(" category Not found");
+            if (category == null)
+                return null;
 
             category.Update(request.Name);
 

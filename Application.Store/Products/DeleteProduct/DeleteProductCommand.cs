@@ -22,11 +22,11 @@ namespace Application.Products.DeletProduct
             var product = repository.GetById(request.id);
             if(product == null)
             {
-                throw new Exception("this product is in use");
+                return null;
             }
             var exist = await variationRepository.CheckExist(request.id);
             if (exist)
-                throw new Exception("this category is in use");
+                return null;
 
             else
             {
