@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Users
 {
-    public class User : BaseEntity<int>
+    public class User : BaseEntity<int> , 
     {
         public string Name { get; set; }
         public string Family { get; set; }
@@ -27,7 +27,6 @@ namespace Domain.Users
 
             return new User
             {
-
                 CreateOn = DateTime.UtcNow,
                 CratetdAgent = "",
                 CreatedIP = "",
@@ -38,7 +37,6 @@ namespace Domain.Users
                 Family = family,
                 Phone = phone,
                 Email = email,
-                
             };
         }
 
