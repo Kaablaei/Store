@@ -41,9 +41,9 @@ namespace API.Controller
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, decimal Price, decimal SalePrice, int count, int variationid)
+        public async Task<IActionResult> Update(int id, CartsDto dto)
         {
-            var Command = new UpdateCartCommand(id, Price, SalePrice, count, variationid);
+            var Command = new UpdateCartCommand(id, dto.Price, dto.SalePrice, dto.Count, dto.VaridationId);
             var result = await mediator.Send(Command);
             if (result == null) return NotFound();
             return Ok(result);
