@@ -2,23 +2,28 @@
 using Domain.Products;
 
 using Domain.Users;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace Infrastructure
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<User,IdentityRole<int>,int>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
+
+
         }
+  
 
         //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         #region Users
 
 
-        public DbSet<User> Users { get; set; }
+
         public DbSet<Address> Address { get; set; }
         //public DbSet<UseAddress> UserAddress { get; set; }
 
@@ -48,21 +53,12 @@ namespace Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var assembly = typeof(IAssemblyMarker).Assembly;
-
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
-
+            base.OnModelCreating(modelBuilder);
 
            
-            
         }
 
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-          
-        //    optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=StoreDb;Trusted_Connection=StoreDB;Integrated Security=true;TrustServerCertificate=True;");
-
-        //    //mycoection string : "Data Source=.;Initial Catalog=StoreDb;Trusted_Connection=Name;Integrated Security=true;TrustServerCertificate=True;"
-        //}
     }
 }

@@ -26,9 +26,9 @@ namespace IntegrationTests.UsersTest
 
             var repo = new UserRepositories(_fixture.BuildDbContext(dbName));
           
-            var user1 = User.Create("name1", "family1", "phone1", "Email1");
-            var user2 = User.Create("name2", "family2", "phone2", "Email2");
-            var user3 = User.Create("name3", "family3", "phone3", "Email3");
+            var user1 = User.Create("name1", "family1", "phone1", "Email1", "  ");
+            var user2 = User.Create("name2", "family2", "phone2", "Email2" , "  ");
+            var user3 = User.Create("name3", "family3", "phone3", "Email3", "  ");
 
            
             repo.Create(user1);
@@ -49,13 +49,13 @@ namespace IntegrationTests.UsersTest
             result.Should().HaveCount(3);
 
             result.First().Id.Should().Be(user1.Id);
-            result.First().name.Should().Be(user1.Name);
+            result.First().name.Should().Be(user1.UserName);
 
             result.SingleOrDefault(p => p.Id == 2).Id.Should().Be(user2.Id);
-            result.SingleOrDefault(p => p.Id == 2).name.Should().Be(user2.Name);
+            result.SingleOrDefault(p => p.Id == 2).name.Should().Be(user2.UserName);
 
             result.SingleOrDefault(p => p.Id == 3).Id.Should().Be(user3.Id);
-            result.Last().name.Should().Be(user3.Name);
+            result.Last().name.Should().Be(user3.UserName);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Application.Users.Create
     {
         public async Task<CreateUserCommandResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = User.Create(request.name,request.family,request.phone,request.email);
+            var user = User.Create(request.name,request.family,request.phone,request.email, request.Password);
             var id = repository.Create(user);
 
             return new CreateUserCommandResponse(id);

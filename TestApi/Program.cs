@@ -12,6 +12,7 @@ using API.Handler;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Domain.Users;
 
 namespace TestApi
 {
@@ -23,8 +24,7 @@ namespace TestApi
 
             // Add services to the container.
 
-
-
+         
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

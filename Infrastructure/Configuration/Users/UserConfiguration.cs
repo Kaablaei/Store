@@ -13,16 +13,14 @@ namespace Infrastructure.Configuration.User
     {     
         public void Configure(EntityTypeBuilder<Domain.Users.User> builder)
         {
-            builder.ToTable("Users");
+           
             builder.HasKey(x => x.Id);
-            builder.Property(p => p.Name).IsRequired().HasMaxLength(256);
+            builder.ToTable("AppUser");
+            builder.Property(p => p.UserName).IsRequired().HasMaxLength(256);
             builder.Property(p=>p.Family).IsRequired().HasMaxLength(256);
-            builder.Property(p => p.Phone).IsRequired().HasMaxLength(30);
+            builder.Property(p => p.PhoneNumber).IsRequired().HasMaxLength(30);
             builder.Property(p => p.Email).IsRequired().HasMaxLength(60);
-            
-            
-
-
+           
         }
     }
 }

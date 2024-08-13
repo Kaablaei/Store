@@ -8,7 +8,7 @@ namespace Application.Users.GetAll
 
         {
 
-            return new GetUsersQueryResponse(user.Id, user.Email, user.Name);
+            return new GetUsersQueryResponse(user.Id, user.Email, user.UserName);
         }
     }
 

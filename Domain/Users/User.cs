@@ -1,23 +1,15 @@
 ﻿using Ardalis.GuardClauses;
-using Domain.Base;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Users
 {
-    public class User : BaseEntity<int> , 
+    public class User : IdentityUser<int>
     {
-        public string Name { get; set; }
-        public string Family { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
 
-        public static User Create(string name, string family, string phone, string email)
+       
+        public string Family { get; set; }
+
+        public static User Create(string name, string family, string phone, string email, string password)
         {
 
             name = Guard.Against.NullOrWhiteSpace(name);
@@ -27,23 +19,16 @@ namespace Domain.Users
 
             return new User
             {
-                CreateOn = DateTime.UtcNow,
-                CratetdAgent = "",
-                CreatedIP = "",
-                ModifyAgent = "",
-                ModifyIP = "",
-                Version = 1,
-                Name = name,
+                PasswordHash = password,
+                UserName = name,
                 Family = family,
-                Phone = phone,
                 Email = email,
+                PhoneNumber = phone,
             };
         }
-
-
-        public  void Update(string name, string family)
+        public void Update(string name, string family)
         {
-            Name = name;
+            UserName = name;
             Family = family;
         }
     }

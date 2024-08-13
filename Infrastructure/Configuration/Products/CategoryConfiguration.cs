@@ -13,6 +13,7 @@ namespace Infrastructure.Configuration.Product
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
+            builder.ToTable("Category");
             builder.HasKey(k => k.Id);
             builder.Property(p => p.Name).IsRequired().HasMaxLength(255);
           

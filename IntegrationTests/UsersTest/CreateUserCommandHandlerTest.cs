@@ -38,7 +38,7 @@ namespace IntegrationTests.Users
 
             var handel = new CrateUserCommandHandler(repo);
             //act
-            var command = new CreateUserCommand("ali", "ali", "1", "A@a.com");
+            var command = new CreateUserCommand("ali", "ali", "1", "A@a.com","");
             var result = await handel.Handle(command, CancellationToken.None);
 
             //assert
@@ -48,7 +48,7 @@ namespace IntegrationTests.Users
             result.Id.Should().BeGreaterThan(0);
             var user = repo.GetById(result.Id);
             user.Should().NotBeNull();
-            user?.Name.Should().Be(command.name);
+            user?.UserName.Should().Be(command.name);
         }
 
 
@@ -61,7 +61,7 @@ namespace IntegrationTests.Users
             var repo = new UserRepositories(dbContext);
 
 
-            var user = User.Create("ali", "aliF", "1", "A@a.com");
+            var user = User.Create("ali", "aliF", "1", "A@a.com" ," ");
             var userId = repo.Create(user);
 
             var Command = new UpdateUserCommand(userId, "Mamad", "MamadZade");
@@ -74,8 +74,8 @@ namespace IntegrationTests.Users
             // assert
 
             user.Id.Should().BeGreaterThan(0);
-            user.Name.Should().NotBe("ali");
-            user.Name.Should().Be("Mamad");
+            user.UserName.Should().NotBe("ali");
+            user.UserName.Should().Be("Mamad");
 
           
 
@@ -87,7 +87,7 @@ namespace IntegrationTests.Users
 
             var updatedUser = repo.GetById(user.Id);
             updatedUser.Should().NotBeNull();
-            updatedUser.Name.Should().Be("John");
+            updatedUser.UserName.Should().Be("John");
 
         }
 
@@ -105,7 +105,7 @@ namespace IntegrationTests.Users
             var dbContext = _fixture.BuildDbContext(dbName); 
             var repo = new UserRepositories(dbContext); 
 
-            var user = User.Create("ali", "aliF", "1", "A@a.com");
+            var user = User.Create("ali", "aliF", "1", "A@a.com" , " ");
             var userId = repo.Create(user);
 
             var command = new DeleteUserCommand(userId);

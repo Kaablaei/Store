@@ -32,7 +32,7 @@ namespace API.Controller
         [HttpPost]
         public async Task<IActionResult> Create(UserDro requestDto)
         {
-            var command = new CreateUserCommand(requestDto.Name,requestDto.Family,requestDto.Phone,requestDto.Email);
+            var command = new CreateUserCommand(requestDto.Name,requestDto.Family,requestDto.Phone,requestDto.Email,requestDto.Password);
             var result = await mediator.Send(command);
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
         }

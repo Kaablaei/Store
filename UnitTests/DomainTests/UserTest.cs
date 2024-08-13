@@ -27,7 +27,7 @@ namespace UnitTests.DomainTests
 
             //act 
 
-            var user = User.Create(name, family, phone, email);
+            var user = User.Create(name, family, phone, email ," ");
 
 
             //assert
@@ -35,7 +35,7 @@ namespace UnitTests.DomainTests
             user.Should().NotBeNull();
             user.Email.Should().Be(email);
             user.Family.Should().Be(family);
-            user.Name.Should().Be(name);
+            user.UserName.Should().Be(name);
             
             
         }

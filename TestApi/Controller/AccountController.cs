@@ -28,7 +28,7 @@ namespace API.Controller
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
 
-            var command = new CreateUserCommand(model.Name, model.Family, model.Phone, model.Email);
+            var command = new CreateUserCommand(model.Name, model.Family, model.Phone, model.Email,model.Password);
             var result = await _mediator.Send(command);
 
 
