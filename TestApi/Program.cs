@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Domain.Users;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 
 namespace TestApi
 {
@@ -24,7 +26,6 @@ namespace TestApi
 
             // Add services to the container.
 
-         
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -32,7 +33,11 @@ namespace TestApi
             builder.Services.ConfigureApplicationLayer(builder.Configuration);
             builder.Services.ConfigureInfrastructureLayer(builder.Configuration);
             //
+            builder.Services.AddIdentity<User, IdentityRole<int>>()
+                   .AddEntityFrameworkStores<ApplicationDbContext>()
+                   .AddDefaultTokenProviders();
 
+            builder.Services.AddAuthorization();
             builder.Services.AddAuthorization();
 
 

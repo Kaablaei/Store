@@ -1,25 +1,28 @@
 ﻿using API.DTOs.Account;
 using Application.Users.Create;
 using Application.Users.Get;
+using Domain.Users;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity; 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace API.Controller
+namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private IConfiguration _configuration;
-        public AccountController(IMediator mediator, IConfiguration configuration)
+        private readonly IConfiguration _configuration;
+        private readonly UserManager<User> _userManager;
+
+        public AccountController(IMediator mediator, IConfiguration configuration, UserManager<User> userManager)
         {
+            _userManager = userManager;
             _mediator = mediator;
             _configuration = configuration;
         }
@@ -27,60 +30,67 @@ namespace API.Controller
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                var user = new User
+                {
+                    UserName = model.Name,
+                    Email = model.Email,
+                    PhoneNumber = model.Phone,
+                    Family = model.Family,
+                };
 
-            var command = new CreateUserCommand(model.Name, model.Family, model.Phone, model.Email,model.Password);
-            var result = await _mediator.Send(command);
+                var result = await _userManager.CreateAsync(user, model.Password);
 
+                if (result.Succeeded)
+                {
+                    var command = new CreateUserCommand(model.Name, model.Family, model.Phone, model.Email, model.Password);
+                    var commandResult = await _mediator.Send(command);
+                    return Ok(commandResult);
+                }
 
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(nameof(model.Email), error.Description);
+                }
+            }
 
-            return BadRequest("Registration failed.");
+            return BadRequest(ModelState);
         }
-
-
-
-
 
         [HttpPost("Login")]
         public async Task<IActionResult> Login(string Email, string Password)
         {
-
-
-
-
-
-
-
-            //   Authorization
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            if (!ModelState.IsValid)
             {
-                Subject = new ClaimsIdentity(new[]
+                return BadRequest("اطلاعات درست نیست ");
+            }
+
+            var user = await _userManager.FindByEmailAsync(Email);
+            if (user != null && await _userManager.CheckPasswordAsync(user, Password))
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
+                var tokenDescriptor = new SecurityTokenDescriptor
                 {
-                new Claim(ClaimTypes.Name, Email),
+                    Subject = new ClaimsIdentity(new[]
+                    {
+                        new Claim(ClaimTypes.Name, user.UserName),
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    }),
+                    Expires = DateTime.UtcNow.AddHours(1),
+                    Issuer = _configuration["Jwt:Issuer"],
+                    Audience = _configuration["Jwt:Issuer"],
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
 
-            }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                Issuer = _configuration["Jwt:Issuer"],
-                Audience = _configuration["Jwt:Issuer"],
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenHandler.WriteToken(token);
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
+                return Ok(new { Token = tokenString });
+            }
 
-            return Ok(new { Token = tokenString });
-
-
-
-
-
+            return Unauthorized("اطلاعات درست نیست ");
         }
-
-
-
-
-
     }
 }

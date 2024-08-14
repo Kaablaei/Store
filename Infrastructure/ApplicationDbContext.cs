@@ -52,9 +52,14 @@ namespace Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var assembly = typeof(IAssemblyMarker).Assembly;
-            modelBuilder.ApplyConfigurationsFromAssembly(assembly);
+
             base.OnModelCreating(modelBuilder);
+
+
+    
+            var assembly = typeof(IAssemblyMarker).Assembly;
+
+            modelBuilder.ApplyConfigurationsFromAssembly(assembly);
 
            
         }
