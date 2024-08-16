@@ -3,7 +3,7 @@ using Application.Users.Create;
 using Application.Users.Get;
 using Domain.Users;
 using MediatR;
-using Microsoft.AspNetCore.Identity; 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,9 +19,14 @@ namespace API.Controllers
         private readonly IMediator _mediator;
         private readonly IConfiguration _configuration;
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _SininManager;
 
-        public AccountController(IMediator mediator, IConfiguration configuration, UserManager<User> userManager)
+        public AccountController(IMediator mediator, IConfiguration configuration
+            , UserManager<User> userManager,
+            SignInManager<User> SininManager
+            )
         {
+            _SininManager = SininManager;
             _userManager = userManager;
             _mediator = mediator;
             _configuration = configuration;
@@ -59,38 +64,47 @@ namespace API.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(string Email, string Password)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("اطلاعات درست نیست ");
-            }
 
-            var user = await _userManager.FindByEmailAsync(Email);
-            if (user != null && await _userManager.CheckPasswordAsync(user, Password))
+            if (ModelState.IsValid)
             {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
-                var tokenDescriptor = new SecurityTokenDescriptor
+                var result = await _SininManager.PasswordSignInAsync(model.Usename, model.Password, model.RememberMe, false);
+
+                if (result.Succeeded)
                 {
-                    Subject = new ClaimsIdentity(new[]
+                    var user = await _userManager.FindByNameAsync(model.Usename);
+
+
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
+                    var tokenDescriptor = new SecurityTokenDescriptor
                     {
-                        new Claim(ClaimTypes.Name, user.UserName),
-                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    }),
-                    Expires = DateTime.UtcNow.AddHours(1),
-                    Issuer = _configuration["Jwt:Issuer"],
-                    Audience = _configuration["Jwt:Issuer"],
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
+                        Subject = new ClaimsIdentity(new[]
+                        {
+                            new Claim(ClaimTypes.Name, model.Usename),
+                            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                        }),
+                        Expires = DateTime.UtcNow.AddHours(1),
+                        Issuer = _configuration["Jwt:Issuer"],
+                        Audience = _configuration["Jwt:Issuer"],
+                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                    };
 
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenString = tokenHandler.WriteToken(token);
+                    var token = tokenHandler.CreateToken(tokenDescriptor);
+                    var tokenString = tokenHandler.WriteToken(token);
 
-                return Ok(new { Token = tokenString });
+                    return Ok(new { Token = tokenString });
+                }
+                return Unauthorized("اطلاعات اشتباه است ");
             }
 
-            return Unauthorized("اطلاعات درست نیست ");
+            return BadRequest(ModelState);
         }
+
     }
+
+
 }
+
+
