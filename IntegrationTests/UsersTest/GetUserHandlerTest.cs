@@ -32,7 +32,7 @@ namespace IntegrationTests.UsersTest
 
             var repo = new UserRepositories(_fixture.BuildDbContext(dbName));
 
-            var user = User.Create("name", "family", "phone", "Email" , "");
+            var user = User.Create("name", "family", "phone", "Email" );
 
 
            int UserId = repo.Create(user);

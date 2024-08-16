@@ -9,7 +9,7 @@ namespace Domain.Users
        
         public string Family { get; set; }
 
-        public static User Create(string name, string family, string phone, string email, string password)
+        public static User Create(string name, string family, string phone, string email)
         {
 
             name = Guard.Against.NullOrWhiteSpace(name);
@@ -19,7 +19,7 @@ namespace Domain.Users
 
             return new User
             {
-                PasswordHash = password,
+              
                 UserName = name,
                 Family = family,
                 Email = email,

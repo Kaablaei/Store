@@ -17,7 +17,6 @@ namespace API.Handler
 
             return true;
         }
-
         private static ProblemDetails CreateProblemDetailFromException(Exception exception)
         {
             return exception is CustomeException
@@ -34,6 +33,5 @@ namespace API.Handler
                     Detail = "Server error"
                 };
         }
-
     }
 }

@@ -39,7 +39,7 @@ namespace IntegrationTests.CartOrInvoiceDetail
             //aboutUser
             var userrepo = new UserRepositories(_fixture.BuildDbContext(dbName));
             
-            var user = User.Create("عبدالله","عباسی","09033958337","a@.com","  ");
+            var user = User.Create("عبدالله","عباسی","09033958337","a@.com");
             userrepo.Create(user);
 
             //aboutProduct 
@@ -80,7 +80,7 @@ namespace IntegrationTests.CartOrInvoiceDetail
             //aboutUser
             var userrepo = new UserRepositories(_fixture.BuildDbContext(dbName));
             
-            var user = User.Create("عبدالله","عباسی","09033958337","a@.com", " ");
+            var user = User.Create("عبدالله","عباسی","09033958337","a@.com" );
         
 
             //aboutProduct 

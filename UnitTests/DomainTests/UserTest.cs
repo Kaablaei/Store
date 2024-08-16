@@ -27,7 +27,7 @@ namespace UnitTests.DomainTests
 
             //act 
 
-            var user = User.Create(name, family, phone, email ," ");
+            var user = User.Create(name, family, phone, email );
 
 
             //assert

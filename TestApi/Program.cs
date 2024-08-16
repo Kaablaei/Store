@@ -24,7 +24,7 @@ namespace TestApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+           
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -32,39 +32,35 @@ namespace TestApi
             builder.Services.AddControllers();
             builder.Services.ConfigureApplicationLayer(builder.Configuration);
             builder.Services.ConfigureInfrastructureLayer(builder.Configuration);
-            //
-            builder.Services.AddIdentity<User, IdentityRole<int>>()
-                   .AddEntityFrameworkStores<ApplicationDbContext>()
-                   .AddDefaultTokenProviders();
 
-            builder.Services.AddAuthorization();
-            builder.Services.AddAuthorization();
-
-
-
-
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
-
+            builder.Services.AddIdentity<User, IdentityRole<int>>(op =>
+            {
+                op.Password.RequireNonAlphanumeric = false;
+                op.Password.RequireLowercase = false;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-             .AddJwtBearer(options =>
-             {
-                 options.TokenValidationParameters = new TokenValidationParameters
-                 {
-                     ValidateIssuer = true,
-                     ValidateAudience = true,
-                     ValidateLifetime = true,
-                     ValidateIssuerSigningKey = true,
-                     ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                     ValidAudience = builder.Configuration["Jwt:Issuer"],
-                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-                 };
-             });
+            .AddJwtBearer(options =>
+            {
+                var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                    ValidAudience = builder.Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                };
+            });
+
             builder.Services.AddSwaggerGen(options =>
             {
                 options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
@@ -77,22 +73,20 @@ namespace TestApi
                 });
 
                 options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+            {
                 {
+                    new Microsoft.OpenApi.Models.OpenApiSecurityScheme
                     {
-                        new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                        Reference = new Microsoft.OpenApi.Models.OpenApiReference
                         {
-                            Reference = new Microsoft.OpenApi.Models.OpenApiReference
-                            {
-                                Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        new string[] {}
-                    }
-                });
+                            Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[] {}
+                }
             });
-
-
+            });
 
             builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
             builder.Services.AddProblemDetails();
@@ -109,7 +103,8 @@ namespace TestApi
             });
 
             var app = builder.Build();
-            // Configure the HTTP request pipeline.
+
+          
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -117,21 +112,17 @@ namespace TestApi
             }
 
             app.UseHttpsRedirection();
-            app.MapControllers();
-            app.UseExceptionHandler(o => { });
-
-
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.MapControllers();
 
             app.Run();
         }
-
-
-
-
     }
 
 
+
 }
+
+
+

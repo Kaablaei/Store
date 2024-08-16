@@ -26,9 +26,9 @@ namespace IntegrationTests.UsersTest
 
             var repo = new UserRepositories(_fixture.BuildDbContext(dbName));
           
-            var user1 = User.Create("name1", "family1", "phone1", "Email1", "  ");
-            var user2 = User.Create("name2", "family2", "phone2", "Email2" , "  ");
-            var user3 = User.Create("name3", "family3", "phone3", "Email3", "  ");
+            var user1 = User.Create("name1", "family1", "phone1", "Email1");
+            var user2 = User.Create("name2", "family2", "phone2", "Email2");
+            var user3 = User.Create("name3", "family3", "phone3", "Email3");
 
            
             repo.Create(user1);

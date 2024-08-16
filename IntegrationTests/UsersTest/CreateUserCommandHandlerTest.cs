@@ -61,7 +61,7 @@ namespace IntegrationTests.Users
             var repo = new UserRepositories(dbContext);
 
 
-            var user = User.Create("ali", "aliF", "1", "A@a.com" ," ");
+            var user = User.Create("ali", "aliF", "1", "A@a.com" );
             var userId = repo.Create(user);
 
             var Command = new UpdateUserCommand(userId, "Mamad", "MamadZade");
@@ -105,7 +105,7 @@ namespace IntegrationTests.Users
             var dbContext = _fixture.BuildDbContext(dbName); 
             var repo = new UserRepositories(dbContext); 
 
-            var user = User.Create("ali", "aliF", "1", "A@a.com" , " ");
+            var user = User.Create("ali", "aliF", "1", "A@a.com" );
             var userId = repo.Create(user);
 
             var command = new DeleteUserCommand(userId);
