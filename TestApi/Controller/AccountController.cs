@@ -76,27 +76,20 @@ namespace API.Controllers
 
             if (result.Succeeded)
             {
-                var user = await _userManager.FindByNameAsync(model.Usename);
-                if (user == null)
-                {
-                    return Unauthorized("User not found.");
-                }
 
 
-
-                // Generate JWT Token
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+                var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[]
                     {
-                new Claim(ClaimTypes.Name, user.UserName),
-                // Add more claims as needed
-            }),
-                    Expires = DateTime.UtcNow.AddMinutes(60),
+                    new Claim(ClaimTypes.Name, model.Usename),
+                   // new Claim(ClaimTypes.NameIdentifier, result.id.Id.ToString())
+                }),
+                    Expires = DateTime.UtcNow.AddHours(1),
                     Issuer = _configuration["Jwt:Issuer"],
-                    Audience = _configuration["Jwt:Audience"],
+                    Audience = _configuration["Jwt:Issuer"],
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                 };
 
@@ -104,10 +97,10 @@ namespace API.Controllers
                 var tokenString = tokenHandler.WriteToken(token);
 
                 return Ok(new { Token = tokenString });
-              
+
             }
 
-            return Unauthorized("Invalid login attempt.");
+            return BadRequest("اطلاعات درست نیست");
         }
 
     }
