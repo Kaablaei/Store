@@ -1,14 +1,13 @@
 ﻿using API.DTOs.Account;
 using Application.Users.Create;
-using Application.Users.Get;
+
 using Domain.Users;
+using Infrastructure.Authentication;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+
 
 namespace API.Controllers
 {
@@ -20,16 +19,20 @@ namespace API.Controllers
         private readonly IConfiguration _configuration;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _SininManager;
+        private readonly JWTProvide _jwtProvide;
 
         public AccountController(IMediator mediator, IConfiguration configuration
             , UserManager<User> userManager,
             SignInManager<User> SininManager
+            , JWTProvide jwtProvide
+
             )
         {
             _SininManager = SininManager;
             _userManager = userManager;
             _mediator = mediator;
             _configuration = configuration;
+            _jwtProvide = jwtProvide;   
         }
 
         [HttpPost("Register")]
@@ -37,6 +40,8 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
+                
+
                 var user = new User
                 {
                     UserName = model.Name,
@@ -72,37 +77,26 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = await _SininManager.PasswordSignInAsync(model.Usename, model.Password, model.RememberMe, false);
-
-            if (result.Succeeded)
+            var user = await _userManager.FindByNameAsync(model.Usename);
+            if (user == null)
             {
-
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[]
-                    {
-                    new Claim(ClaimTypes.Name, model.Usename),
-                   // new Claim(ClaimTypes.NameIdentifier, result.id.Id.ToString())
-                }),
-                    Expires = DateTime.UtcNow.AddHours(1),
-                    Issuer = _configuration["Jwt:Issuer"],
-                    Audience = _configuration["Jwt:Issuer"],
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
-
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenString = tokenHandler.WriteToken(token);
-
-                return Ok(new { Token = tokenString });
-
+                return BadRequest("اطلاعات درست نیست ");
             }
 
-            return BadRequest("اطلاعات درست نیست");
+            var token = _jwtProvide.Genertge(user);
+            return Ok(new { Token = token });
+
+           
         }
 
+
+        [Authorize]
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _SininManager.SignOutAsync();
+            return NoContent();
+        }
     }
 
 
