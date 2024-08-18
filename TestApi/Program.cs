@@ -7,6 +7,7 @@ using System.Text;
 using Domain.Users;
 using Microsoft.AspNetCore.Identity;
 using API.OptionSetup;
+using Infrastructure.Authentication;
 
 namespace TestApi
 {
@@ -35,7 +36,7 @@ namespace TestApi
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer();
-
+            builder.Services.AddSingleton<JWTProvide>();
             builder.Services.ConfigureOptions<JwtOptionSetup>();
             builder.Services.ConfigureOptions<JwtBeareOptionSetup>();
                 
@@ -51,7 +52,7 @@ namespace TestApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+          
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
