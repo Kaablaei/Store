@@ -99,7 +99,7 @@ namespace IntegrationTests.CartOrInvoiceDetail
             Func<Task> act = async () => await handel.Handle(command, CancellationToken.None);
 
             //assert
-            await act.Should().ThrowAsync<NullReferenceException>();
+            await act.Should().ThrowAsync<Exception>().WithMessage("User not found");
 
 
         }

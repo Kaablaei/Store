@@ -65,22 +65,21 @@ namespace IntegrationTests.ProductTest
         [Fact]
         public async Task Handler_Should_Throw_Exception_If_Category_NotFound()
         {
-            //arrange
+
             string dbName = Guid.NewGuid().ToString();
 
-            var repo = new ProductRepositories(_fixture.BuildDbContext(dbName));
-            var categoyRepo = new CategoryRepositories(_fixture.BuildDbContext(dbName));
-            var handel = new CreateProductCommandHandler(repo, categoyRepo);
+            var productRepo = new ProductRepositories(_fixture.BuildDbContext(dbName));
+            var categoryRepo = new CategoryRepositories(_fixture.BuildDbContext(dbName));
+            var handler = new CreateProductCommandHandler(productRepo, categoryRepo);
 
-            //act 
-
+            // Act
             var command = new CreateProductCommand("2694_msda", "سامسوگ A50", 68768);
 
-            Func<Task> act = async () => await handel.Handle(command, CancellationToken.None);
+            Func<Task> act = async () => await handler.Handle(command, CancellationToken.None);
 
-            //assert
-
-            await act.Should().ThrowAsync<NullReferenceException>();
+            // Assert
+            await act.Should().ThrowAsync<Application.CustomeException>()
+                      .WithMessage("category not found");
 
 
         }
@@ -108,22 +107,27 @@ namespace IntegrationTests.ProductTest
         [Fact]
         public async Task Handle_Should_Delete_Product()
         {
+
+            // Arrange
             string dbName = Guid.NewGuid().ToString();
             var dbContext = _fixture.BuildDbContext(dbName);
             var repo = new ProductRepositories(dbContext);
-
+            var valiration = new VariationRepository(dbContext);
             var product = Product.Create("10MP", "کفش زنانه", 5);
-            var prucutId = repo.Create(product);
+            var productId = repo.Create(product);
 
-            var command = new DeleteProductCommand(prucutId);
-     //       var handler = new DeleteProductCommandHandler(repo);
+            var command = new DeleteProductCommand(productId);
+         
+            var handler = new DeleteProductCommandHandler(repo, valiration);
 
-          //  await handler.Handle(command, CancellationToken.None);
+            // Act
+            var result = await handler.Handle(command, CancellationToken.None);
 
-
-            var deletedUser = repo.GetById(prucutId);
-            deletedUser.Should().BeNull();
-
+            // Assert
+            var deletedProduct = repo.GetById(productId);
+            deletedProduct.Should().BeNull();
+            result.Should().NotBeNull();
+            result.id.Should().Be(productId);
         }
     }
 }

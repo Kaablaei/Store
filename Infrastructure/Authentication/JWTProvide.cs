@@ -21,8 +21,6 @@ namespace Infrastructure.Authentication
         }
         public string Genertge(User user)
         {
-            
-            
             var cleaim = new Claim[] 
             {
             
@@ -47,9 +45,6 @@ namespace Infrastructure.Authentication
             return tokenValue;
 
         }
-
-        
-
     }
 
     public class JwtOptions

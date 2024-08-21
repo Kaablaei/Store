@@ -6,6 +6,7 @@ using Application.Categorys.CreateCategory;
 using Application.Users.DeleteUser;
 using Application.Users.UpdateUser;
 using Domain.Products;
+using Domain.Products.Repository;
 using Domain.Users;
 using FluentAssertions;
 using Infrastructure;
@@ -96,29 +97,32 @@ namespace IntegrationTests.CategoryTests
 
 
         [Fact]
+
         public async Task Handle_Should_Delete_Category()
         {
 
 
             // arrange
             string dbName = Guid.NewGuid().ToString();
-            var repo = new CategoryRepositories(_fixture.BuildDbContext(dbName));
+            var dbContext = _fixture.BuildDbContext(dbName);
+            var categoryRepo = new CategoryRepositories(dbContext);
+            var productRepo = new ProductRepositories(dbContext); 
 
             var category = Category.Create("لوازم خانگی");
-            var categoryid = repo.Create(category);
-            var Command = new DeleteCategoryCommand(categoryid);
+            var categoryId = categoryRepo.Create(category);
 
-           // var handler = new DeleteCategoryCommandHandler(repo);
+          
+            var command = new DeleteCategoryCommand(categoryId);
+
+      
+            var handler = new DeleteCategoryCommandHandler(categoryRepo, productRepo);
 
             // act
-          //  var result = await handler.Handle(Command, CancellationToken.None);
-
-            
-           
+            var result = await handler.Handle(command, CancellationToken.None);
 
             // assert
-            var deletedUser = repo.GetById(categoryid);
-            deletedUser.Should().BeNull();
+            var deletedCategory = categoryRepo.GetById(categoryId);
+            deletedCategory.Should().BeNull(); 
 
         }
 

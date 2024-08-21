@@ -40,8 +40,6 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-
                 var user = new User
                 {
                     UserName = model.Name,
@@ -71,32 +69,19 @@ namespace API.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
             var user = await _userManager.FindByNameAsync(model.Usename);
             if (user == null)
             {
                 return BadRequest("اطلاعات درست نیست ");
             }
-
             var token = _jwtProvide.Genertge(user);
-            return Ok(new { Token = token });
-
-           
+            return Ok(new { Token = token });  
         }
 
-
-        [Authorize]
-        [HttpPost("Logout")]
-        public async Task<IActionResult> Logout()
-        {
-            await _SininManager.SignOutAsync();
-            return NoContent();
-        }
     }
 
 
