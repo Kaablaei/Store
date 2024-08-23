@@ -19,6 +19,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Infrastructure;
 using AutoFixture;
+using IdentityModel.Client;
 
 namespace IntegrationTests.AccountingTest
 {
@@ -37,28 +38,43 @@ namespace IntegrationTests.AccountingTest
                     services.Remove(descriptor);
                 }
 
-
                 services.AddDbContext<ApplicationDbContext>(options =>
                 {
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
                 });
 
-
                 var serviceProvider = services.BuildServiceProvider();
-
 
                 using (var scope = serviceProvider.CreateScope())
                 {
                     var scopedServices = scope.ServiceProvider;
                     var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-
-
+                    var userManager = scopedServices.GetRequiredService<UserManager<User>>();
                     db.Database.EnsureCreated();
 
-
+                    // Seed the data
+                    SeedData(userManager).Wait();
                 }
             });
         }
+
+        private async Task SeedData(UserManager<User> userManager)
+        {
+            if (!userManager.Users.Any())
+            {
+                var user = new User
+                {
+                    UserName = "testuserforLogin",
+                    Email = "testuser@example.com",
+                    PhoneNumber = "090333589442",
+                    Family = "UserFamily"
+
+                };
+
+                await userManager.CreateAsync(user, "Test@123");
+            }
+        }
+
     }
 
     public class AccountControllerTest : IClassFixture<CustomWebApplicationFactory<TestApi.Program>>
@@ -124,13 +140,52 @@ namespace IntegrationTests.AccountingTest
             responseString.Should().NotBeNullOrEmpty();
         }
 
-
-
-
         [Fact]
-        public async Task Login_Should_Return_Token_When_Valid_Credentials()
+        public async Task Login_Should_Return_OK_When_Valid_Credentials()
         {
+            // Arrange
+            var loginModel = new LoginViewModel
+            {
+                 Usename = "testuserforLogin",
+                Password = "Test@123"
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(loginModel), Encoding.UTF8, "application/json");
+
+            // Act
+            var response = await _client.PostAsync("/api/account/login", content);
+
+            // Assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+            var responseString = await response.Content.ReadAsStringAsync();
+            responseString.Should().NotBeNullOrEmpty();
+
 
         }
+
+        [Fact]
+        public async Task Login_Should_Return_BadRequest_When_NotValid_Credentials()
+        {
+            // Arrange
+            var loginModel = new LoginViewModel
+            {
+                Usename = "t",
+                Password = "Test@123"
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(loginModel), Encoding.UTF8, "application/json");
+
+            // Act
+            var response = await _client.PostAsync("/api/account/login", content);
+
+            // Assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
+            var responseString = await response.Content.ReadAsStringAsync();
+            responseString.Should().NotBeNullOrEmpty();
+
+
+        }
+
+
     }
 }
