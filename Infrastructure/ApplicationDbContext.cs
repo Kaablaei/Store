@@ -1,4 +1,5 @@
-﻿using Domain.Invoices;
+﻿using API.OutBox;
+using Domain.Invoices;
 using Domain.Products;
 
 using Domain.Users;
@@ -16,10 +17,10 @@ namespace Infrastructure
 
 
         }
-  
+
 
         //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-
+        public DbSet<OutboxMessage> OutboxMessages { get; set; }
         #region Users
 
 

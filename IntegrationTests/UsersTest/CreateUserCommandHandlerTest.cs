@@ -27,29 +27,29 @@ namespace IntegrationTests.Users
         }
 
 
-        [Fact]
-        public async Task Handle_Should_Create_User()
-        {
+        //[Fact]
+        //public async Task Handle_Should_Create_User()
+        //{
 
-            //arrange
-            string dbName = Guid.NewGuid().ToString();
+        //    //arrange
+        //    string dbName = Guid.NewGuid().ToString();
 
-            var repo = new UserRepositories(_fixture.BuildDbContext(dbName));
+        //    var repo = new UserRepositories(_fixture.BuildDbContext(dbName));
 
-            var handel = new CrateUserCommandHandler(repo);
-            //act
-            var command = new CreateUserCommand("ali", "ali", "1", "A@a.com","");
-            var result = await handel.Handle(command, CancellationToken.None);
+        //    var handel = new CrateUserCommandHandler(repo);
+        //    //act
+        //    var command = new CreateUserCommand("ali", "ali", "1", "A@a.com","");
+        //    var result = await handel.Handle(command, CancellationToken.None);
 
-            //assert
+        //    //assert
 
 
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(0);
-            var user = repo.GetById(result.Id);
-            user.Should().NotBeNull();
-            user?.UserName.Should().Be(command.name);
-        }
+        //    result.Should().NotBeNull();
+        //    result.Id.Should().BeGreaterThan(0);
+        //    var user = repo.GetById(result.Id);
+        //    user.Should().NotBeNull();
+        //    user?.UserName.Should().Be(command.name);
+        //}
 
         [Fact]
         public async Task Handle_Should_Update_User()

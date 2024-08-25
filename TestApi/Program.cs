@@ -8,6 +8,7 @@ using Domain.Users;
 using Microsoft.AspNetCore.Identity;
 using API.OptionSetup;
 using Infrastructure.Authentication;
+using API.OutBox;
 
 namespace TestApi
 {
@@ -68,6 +69,7 @@ namespace TestApi
                 });
             });
 
+            builder.Services.AddHostedService<OutboxProcessorService>();
 
 
             var app = builder.Build();

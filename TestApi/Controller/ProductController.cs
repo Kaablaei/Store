@@ -5,6 +5,7 @@ using Application.Products.GetProduct;
 using Application.Products.GetProducts;
 using Application.Products.UpdateProduct;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -33,6 +34,7 @@ namespace API.Controller
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(ProductDto requestDto)
         {
 
@@ -41,7 +43,7 @@ namespace API.Controller
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
 
         }
-
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, ProductDto requestDto)
         {
@@ -54,6 +56,7 @@ namespace API.Controller
             return Ok(result);
         }
 
+        [Authorize]
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
