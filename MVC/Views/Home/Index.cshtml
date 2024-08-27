@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ProductViewMdoel>  
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Title</th>
+        
+          
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+             
+                <td>@product.Id</td>
+                <td>@product.Title</td>
+             
+             
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a>1</a>
+<a>2</a>
+<a>3</a>
+<a>4</a>
+<a>...</a>

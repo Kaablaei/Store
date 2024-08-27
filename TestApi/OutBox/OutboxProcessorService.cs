@@ -22,8 +22,8 @@ namespace API.OutBox
 
                     foreach (var message in messages)
                     {
-                        // ارسال پیام به سرویس پیام‌رسان
-                        // ...
+                        // meesage send for user 
+                       
 
                         message.Processed = true;
                         context.Update(message);

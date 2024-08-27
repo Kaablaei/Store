@@ -34,7 +34,7 @@ namespace API.Controller
         }
 
         [HttpPost]
-        [Authorize]
+        
         public async Task<IActionResult> Create(ProductDto requestDto)
         {
 
@@ -43,7 +43,7 @@ namespace API.Controller
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
 
         }
-        [Authorize]
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, ProductDto requestDto)
         {
