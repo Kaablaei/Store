@@ -1,3 +1,4 @@
+using MVC.Application;
 using MVC.Services;
 
 namespace MVC
@@ -11,6 +12,7 @@ namespace MVC
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpClient<ApiService>();
+            builder.Services.AddScoped<APIcaller>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

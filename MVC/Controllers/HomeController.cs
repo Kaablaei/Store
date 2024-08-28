@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using MVC.Application;
 using MVC.Models;
 using MVC.Services;
 using System.Diagnostics;
@@ -9,59 +11,57 @@ namespace MVC.Controllers
     public class HomeController : Controller
     {
 
-        private readonly ApiService _apiService;
+        private readonly APIcaller _apiCaller;
 
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, ApiService apiService)
+        public HomeController(ILogger<HomeController> logger, APIcaller apiCaller)
         {
-            _apiService = apiService;
+            _apiCaller = apiCaller;
             _logger = logger;
         }
 
 
         public async Task<IActionResult> Index(int No = 1)
         {
-
-            string apiUrl = $"https://localhost:7077/api/Product?pageNo={No}";
-            var data = await _apiService.GetDataFromApiAsync(apiUrl);
-            var products = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ProductViewMdoel>>(data);
-            return View(products);
-
+            return View(_apiCaller.Getpruducts(No));
         }
+
+
 
         public IActionResult CreateProduct()
         {
-            return View();
+            var categories = _apiCaller.GetCategories(1); 
+            var model = new CreateProduct
+            {
+                Categories = categories.Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.name
+                })
+            };
+            return View(model);
         }
 
-        public async Task<HttpResponseMessage> PostDataToApiAsync(string url, HttpContent content)
-        {
-            using var client = new HttpClient();
-            var response = await client.PostAsync(url, content);
-            return response;
-        }
+
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct(CreateProduct model)
+        public IActionResult CreateProduct(CreateProduct model)
         {
-            if (ModelState.IsValid)
-            {
-                string apiUrl = "https://localhost:7077/api/Product";
-                var jsonContent = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(model), Encoding.UTF8);
-                var response = _apiService.PostDataToApiAsync(apiUrl, jsonContent);
-
-                if (response.IsCompletedSuccessfully)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "????");
-                }
-            }
-
-            return View(model);
+          
+    if (ModelState.IsValid)
+    {
+        try
+        {
+            _apiCaller.CreateProduct(model.sku, model.Title, model.categoryId);
+            return RedirectToAction("Index");
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError("", ex.Message);
+        }
+    }
+    return View(model);
         }
 
 
