@@ -1,4 +1,5 @@
-﻿namespace MVC.Services
+﻿
+namespace MVC.Services
 {
     public class ApiService
     {
@@ -14,6 +15,11 @@
             var response = await _httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();
+        }
+
+        internal async Task PostDataToApiAsync(string apiUrl, StringContent jsonContent)
+        {
+            throw new NotImplementedException();
         }
     }
 }
