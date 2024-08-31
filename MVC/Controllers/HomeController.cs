@@ -48,8 +48,6 @@ namespace MVC.Controllers
         [HttpPost]
         public IActionResult CreateProduct([FromForm] CreateProduct model, CancellationToken cancellationToken)
         {
-
-
             try
             {
                 _apiCaller.CreateProduct(model.sku, model.Title, model.categoryId, cancellationToken);
