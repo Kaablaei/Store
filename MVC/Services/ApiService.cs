@@ -17,7 +17,7 @@ namespace MVC.Services
             return await response.Content.ReadAsStringAsync();
         }
 
-        public async Task PostDataToApiAsync(string apiUrl, StringContent jsonContent)
+        public async Task PostDataToApiAsync(string apiUrl, StringContent jsonContent,CancellationToken cancellationToken)
         {
             var response = await _httpClient.PostAsync(apiUrl, jsonContent);
             response.EnsureSuccessStatusCode();

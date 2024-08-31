@@ -49,30 +49,25 @@ namespace MVC.Controllers
         public IActionResult CreateProduct([FromForm] CreateProduct model, CancellationToken cancellationToken)
         {
 
-            if (ModelState.IsValid)
+
+            try
             {
-                try
-                {
-                    _apiCaller.CreateProduct(model.sku, model.Title, model.categoryId);
-                    return RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "erorr");
-                }
+                _apiCaller.CreateProduct(model.sku, model.Title, model.categoryId, cancellationToken);
+                return RedirectToAction("Index");
             }
-            return View(model);
+            catch
+            {
+                ModelState.AddModelError("", "erorr");
+                return View(model);
+            }
+
         }
-
-
-
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

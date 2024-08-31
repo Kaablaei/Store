@@ -32,7 +32,8 @@ namespace MVC.Application
             return categories;
         }
 
-        public void CreateProduct( string sku , string title, int categoryId)
+
+        public async Task CreateProduct(string sku, string title, int categoryId, CancellationToken cancellationToken)
         {
             string apiUrl = "https://localhost:7077/api/Product";
             var newProduct = new
@@ -41,9 +42,12 @@ namespace MVC.Application
                 Title = title,
                 CategoryId = categoryId
             };
+
             var jsonContent = new StringContent(JsonConvert.SerializeObject(newProduct), Encoding.UTF8, "application/json");
-            var response = _apiService.PostDataToApiAsync(apiUrl, jsonContent);
+
+            await _apiService.PostDataToApiAsync(apiUrl, jsonContent,cancellationToken);
         }
+
 
     }
 }
