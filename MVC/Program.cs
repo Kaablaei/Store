@@ -10,6 +10,9 @@ namespace MVC
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddRazorPages()
+    .AddRazorRuntimeCompilation();
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpClient<ApiService>();
             builder.Services.AddScoped<APIcaller>();

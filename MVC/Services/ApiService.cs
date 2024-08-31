@@ -17,9 +17,10 @@ namespace MVC.Services
             return await response.Content.ReadAsStringAsync();
         }
 
-        internal async Task PostDataToApiAsync(string apiUrl, StringContent jsonContent)
+        public async Task PostDataToApiAsync(string apiUrl, StringContent jsonContent)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.PostAsync(apiUrl, jsonContent);
+            response.EnsureSuccessStatusCode();
         }
     }
 }

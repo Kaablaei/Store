@@ -40,17 +40,19 @@ namespace TestApi.Controller
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
         }
 
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, string name)
         {
-             var Command = new UpdateCategoryCommand(id, name);
-            var result = await mediator.Send(Command);
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return Ok(result);
+           var Command = new UpdateCategoryCommand(id, name);
+           var result = await mediator.Send(Command);
+           if (result == null)
+           {
+               return NotFound();
+           }
+           return Ok(result);
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

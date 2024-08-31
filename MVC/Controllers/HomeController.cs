@@ -31,7 +31,7 @@ namespace MVC.Controllers
 
         public IActionResult CreateProduct()
         {
-            var categories = _apiCaller.GetCategories(1); 
+            var categories = _apiCaller.GetCategories(1);
             var model = new CreateProduct
             {
                 Categories = categories.Select(c => new SelectListItem
@@ -46,23 +46,25 @@ namespace MVC.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateProduct(CreateProduct model)
+        public IActionResult CreateProduct([FromForm] CreateProduct model, CancellationToken cancellationToken)
         {
-          
-    if (ModelState.IsValid)
-    {
-        try
-        {
-            _apiCaller.CreateProduct(model.sku, model.Title, model.categoryId);
-            return RedirectToAction("Index");
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _apiCaller.CreateProduct(model.sku, model.Title, model.categoryId);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "erorr");
+                }
+            }
+            return View(model);
         }
-        catch (Exception ex)
-        {
-            ModelState.AddModelError("", ex.Message);
-        }
-    }
-    return View(model);
-        }
+
+
 
 
 
