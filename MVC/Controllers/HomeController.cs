@@ -43,8 +43,6 @@ namespace MVC.Controllers
             return View(model);
         }
 
-
-
         [HttpPost]
         public IActionResult CreateProduct([FromForm] CreateProduct model, CancellationToken cancellationToken)
         {
@@ -58,8 +56,9 @@ namespace MVC.Controllers
                 ModelState.AddModelError("", "erorr");
                 return View(model);
             }
-
         }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

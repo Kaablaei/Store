@@ -1,43 +1,68 @@
-﻿@model IEnumerable<ProductViewMdoel>  
+﻿@model IEnumerable<ProductViewMdoel>
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        margin: 10px;
+        text-align: center;
+        font-family: Arial, sans-serif;
+    }
 
+    .price {
+        color: grey;
+        font-size: 22px;
+    }
+
+    .card button {
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+    }
+
+        .card button:hover {
+            opacity: 0.7;
+        }
+</style>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">سلام </a>.</p>
+   
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>id</th>
-            <th>Title</th>
-        
-          
-        </tr>
-    </thead>
-    <tbody>
+<div class="container">
+    <div class="row">
         @foreach (var product in Model)
         {
-            <tr>
-             
-                <td>@product.Id</td>
-                <td>@product.Title</td>
-             
-             
-            </tr>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="img/Product+Showcase-1.jpg" alt="Product Image" style="width:100%">
+                    <h1>@product.Title</h1>
+                    <p class="price">$@product.Id</p>
+                    <p>Some text about the product..</p>
+                    <p><button>Add to Cart</button></p>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>
 
-<a asp-action="Index" asp-route-No="1">1</a>
-<a asp-action="Index" asp-route-No="2">2</a>
-<a asp-action="Index" asp-route-No="3">3</a>
-<a asp-action="Index" asp-route-No="4">4</a>
-<a asp-action="Index" asp-route-No="5">5</a>
-<a asp-action="Index" asp-route-No="6">6</a>
-<a>.....</a>
+<div class="pagination">
+    <a asp-action="Index" asp-route-No="1 "> 1 </a>
+    <a asp-action="Index" asp-route-No="2 "> 2 </a>
+    <a asp-action="Index" asp-route-No="3 "> 3 </a>
+    <a asp-action="Index" asp-route-No="4 "> 4 </a>
+    <a asp-action="Index" asp-route-No="5 "> 5 </a>
+    <a asp-action="Index" asp-route-No="6 "> 6 </a>
+    <a asp-action="Index" asp-route-No="7 "> 7 </a>
+    <a>.....</a>
+</div>
