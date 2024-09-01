@@ -3,6 +3,7 @@ using MVC.Models;
 using MVC.Services;
 using Newtonsoft.Json;
 using System.Text;
+using System.Threading;
 
 namespace MVC.Application
 {
@@ -49,5 +50,13 @@ namespace MVC.Application
         }
 
       
+        public async Task CreateUser(RegisterViewModel model, CancellationToken cancellationToken)
+        {
+
+            string apiUrl = "https://localhost:7077/api/Account/Register";
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+
+            await _apiService.PostDataToApiAsync(apiUrl, jsonContent, cancellationToken);
+        }
     }
 }
