@@ -22,24 +22,28 @@ namespace MVC.Controllers
         }
 
 
-       [HttpPost]
+        [HttpPost]
         public IActionResult Register([FromForm] RegisterViewModel model, CancellationToken cancellationToken)
         {
 
-            try
+            if (ModelState.IsValid)
             {
 
-                _apiCaller.CreateUser(model, cancellationToken);
-                return Redirect("index");
+
+
+                try
+                {
+                    _apiCaller.CreateUser(model, cancellationToken);
+                    return View("RegisterSuccses");
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "erorr");
+                    return View(model);
+                }
 
             }
-            catch
-            {
-                ModelState.AddModelError("", "erorr");
-                return View(model);
-            }
-
-
+            return View(model);
         }
 
 
@@ -51,5 +55,23 @@ namespace MVC.Controllers
 
             return View();
         }
+
+
+        [HttpPost]
+        public IActionResult Login(LoginviewModel model, CancellationToken cancellationToken)
+        {
+            if (ModelState.IsValid)
+            {
+                var rezalt = _apiCaller.LoginUser(model, cancellationToken);
+                return Redirect("https://localhost:7008/");
+            }
+            else
+            {
+
+                ModelState.AddModelError("", "erorr");
+                return View(model);
+            }
+        }
+
     }
 }

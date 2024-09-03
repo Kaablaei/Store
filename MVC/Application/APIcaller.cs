@@ -58,5 +58,15 @@ namespace MVC.Application
 
             await _apiService.PostDataToApiAsync(apiUrl, jsonContent, cancellationToken);
         }
+
+
+        public async Task LoginUser(LoginviewModel model, CancellationToken cancellationToken)
+        {
+
+            string apiUrl = "https://localhost:7077/api/Account/Login";
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+
+            await _apiService.PostDataToApiAsync(apiUrl, jsonContent, cancellationToken);
+        }
     }
 }
